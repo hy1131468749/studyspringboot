@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glodio.dao.IConnectPlatformDao">
+  <resultMap id="BaseResultMap" type="com.glodio.bean.ConnectPlatform">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="http" jdbcType="VARCHAR" property="http" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="nb_appId" jdbcType="VARCHAR" property="nbAppid" />
+    <result column="nb_secret" jdbcType="VARCHAR" property="nbSecret" />
+    <result column="nb_ca" jdbcType="VARCHAR" property="nbCa" />
+    <result column="nb_ca_password" jdbcType="VARCHAR" property="nbCaPassword" />
+    <result column="nb_pkcs12" jdbcType="VARCHAR" property="nbPkcs12" />
+    <result column="nb_pkcs12_password" jdbcType="VARCHAR" property="nbPkcs12Password" />
+    <result column="nb_manufacturer_id" jdbcType="VARCHAR" property="nbManufacturerId" />
+    <result column="nb_manufacturer_name" jdbcType="VARCHAR" property="nbManufacturerName" />
+    <result column="nb_model" jdbcType="VARCHAR" property="nbModel" />
+    <result column="nb_protocol_type" jdbcType="VARCHAR" property="nbProtocolType" />
+    <result column="nb_device_type" jdbcType="VARCHAR" property="nbDeviceType" />
+    <result column="udp_websocket_port" jdbcType="INTEGER" property="udpWebsocketPort" />
+    <result column="ftp_url" jdbcType="VARCHAR" property="ftpUrl" />
+    <result column="hardware" jdbcType="VARCHAR" property="hardware" />
+    <result column="video_ip" jdbcType="VARCHAR" property="videoIp" />
+    <result column="video_port" jdbcType="INTEGER" property="videoPort" />
+    <result column="video_user" jdbcType="VARCHAR" property="videoUser" />
+    <result column="video_password" jdbcType="VARCHAR" property="videoPassword" />
+    <result column="nokia_user_name" jdbcType="VARCHAR" property="nokiaUserName" />
+    <result column="nokia_password" jdbcType="VARCHAR" property="nokiaPassword" />
+    <result column="nokia_identifier" jdbcType="VARCHAR" property="nokiaIdentifier" />
+    <result column="nokia_group_name" jdbcType="VARCHAR" property="nokiaGroupName" />
+    <result column="onenet_appkey" jdbcType="VARCHAR" property="onenetAppkey" />
+    <result column="onenet_token" jdbcType="VARCHAR" property="onenetToken" />
+    <result column="smoke_detector_partnerid" jdbcType="VARCHAR" property="smokeDetectorPartnerid" />
+    <result column="smoke_detector_partner_key" jdbcType="VARCHAR" property="smokeDetectorPartnerKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type_id, name, http, update_time, create_time, ip, port, nb_appId, nb_secret, 
+    nb_ca, nb_ca_password, nb_pkcs12, nb_pkcs12_password, nb_manufacturer_id, nb_manufacturer_name, 
+    nb_model, nb_protocol_type, nb_device_type, udp_websocket_port, ftp_url, hardware, 
+    video_ip, video_port, video_user, video_password, nokia_user_name, nokia_password, 
+    nokia_identifier, nokia_group_name, onenet_appkey, onenet_token, smoke_detector_partnerid, 
+    smoke_detector_partner_key
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from connect_platform
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from connect_platform
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.glodio.bean.ConnectPlatform">
+    insert into connect_platform (id, type_id, name, 
+      http, update_time, create_time, 
+      ip, port, nb_appId, 
+      nb_secret, nb_ca, nb_ca_password, 
+      nb_pkcs12, nb_pkcs12_password, nb_manufacturer_id, 
+      nb_manufacturer_name, nb_model, nb_protocol_type, 
+      nb_device_type, udp_websocket_port, ftp_url, 
+      hardware, video_ip, video_port, 
+      video_user, video_password, nokia_user_name, 
+      nokia_password, nokia_identifier, nokia_group_name, 
+      onenet_appkey, onenet_token, smoke_detector_partnerid, 
+      smoke_detector_partner_key)
+    values (#{id,jdbcType=BIGINT}, #{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{http,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{ip,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, #{nbAppid,jdbcType=VARCHAR}, 
+      #{nbSecret,jdbcType=VARCHAR}, #{nbCa,jdbcType=VARCHAR}, #{nbCaPassword,jdbcType=VARCHAR}, 
+      #{nbPkcs12,jdbcType=VARCHAR}, #{nbPkcs12Password,jdbcType=VARCHAR}, #{nbManufacturerId,jdbcType=VARCHAR}, 
+      #{nbManufacturerName,jdbcType=VARCHAR}, #{nbModel,jdbcType=VARCHAR}, #{nbProtocolType,jdbcType=VARCHAR}, 
+      #{nbDeviceType,jdbcType=VARCHAR}, #{udpWebsocketPort,jdbcType=INTEGER}, #{ftpUrl,jdbcType=VARCHAR}, 
+      #{hardware,jdbcType=VARCHAR}, #{videoIp,jdbcType=VARCHAR}, #{videoPort,jdbcType=INTEGER}, 
+      #{videoUser,jdbcType=VARCHAR}, #{videoPassword,jdbcType=VARCHAR}, #{nokiaUserName,jdbcType=VARCHAR}, 
+      #{nokiaPassword,jdbcType=VARCHAR}, #{nokiaIdentifier,jdbcType=VARCHAR}, #{nokiaGroupName,jdbcType=VARCHAR}, 
+      #{onenetAppkey,jdbcType=VARCHAR}, #{onenetToken,jdbcType=VARCHAR}, #{smokeDetectorPartnerid,jdbcType=VARCHAR}, 
+      #{smokeDetectorPartnerKey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glodio.bean.ConnectPlatform">
+    insert into connect_platform
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="http != null">
+        http,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="port != null">
+        port,
+      </if>
+      <if test="nbAppid != null">
+        nb_appId,
+      </if>
+      <if test="nbSecret != null">
+        nb_secret,
+      </if>
+      <if test="nbCa != null">
+        nb_ca,
+      </if>
+      <if test="nbCaPassword != null">
+        nb_ca_password,
+      </if>
+      <if test="nbPkcs12 != null">
+        nb_pkcs12,
+      </if>
+      <if test="nbPkcs12Password != null">
+        nb_pkcs12_password,
+      </if>
+      <if test="nbManufacturerId != null">
+        nb_manufacturer_id,
+      </if>
+      <if test="nbManufacturerName != null">
+        nb_manufacturer_name,
+      </if>
+      <if test="nbModel != null">
+        nb_model,
+      </if>
+      <if test="nbProtocolType != null">
+        nb_protocol_type,
+      </if>
+      <if test="nbDeviceType != null">
+        nb_device_type,
+      </if>
+      <if test="udpWebsocketPort != null">
+        udp_websocket_port,
+      </if>
+      <if test="ftpUrl != null">
+        ftp_url,
+      </if>
+      <if test="hardware != null">
+        hardware,
+      </if>
+      <if test="videoIp != null">
+        video_ip,
+      </if>
+      <if test="videoPort != null">
+        video_port,
+      </if>
+      <if test="videoUser != null">
+        video_user,
+      </if>
+      <if test="videoPassword != null">
+        video_password,
+      </if>
+      <if test="nokiaUserName != null">
+        nokia_user_name,
+      </if>
+      <if test="nokiaPassword != null">
+        nokia_password,
+      </if>
+      <if test="nokiaIdentifier != null">
+        nokia_identifier,
+      </if>
+      <if test="nokiaGroupName != null">
+        nokia_group_name,
+      </if>
+      <if test="onenetAppkey != null">
+        onenet_appkey,
+      </if>
+      <if test="onenetToken != null">
+        onenet_token,
+      </if>
+      <if test="smokeDetectorPartnerid != null">
+        smoke_detector_partnerid,
+      </if>
+      <if test="smokeDetectorPartnerKey != null">
+        smoke_detector_partner_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="http != null">
+        #{http,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="nbAppid != null">
+        #{nbAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="nbSecret != null">
+        #{nbSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="nbCa != null">
+        #{nbCa,jdbcType=VARCHAR},
+      </if>
+      <if test="nbCaPassword != null">
+        #{nbCaPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="nbPkcs12 != null">
+        #{nbPkcs12,jdbcType=VARCHAR},
+      </if>
+      <if test="nbPkcs12Password != null">
+        #{nbPkcs12Password,jdbcType=VARCHAR},
+      </if>
+      <if test="nbManufacturerId != null">
+        #{nbManufacturerId,jdbcType=VARCHAR},
+      </if>
+      <if test="nbManufacturerName != null">
+        #{nbManufacturerName,jdbcType=VARCHAR},
+      </if>
+      <if test="nbModel != null">
+        #{nbModel,jdbcType=VARCHAR},
+      </if>
+      <if test="nbProtocolType != null">
+        #{nbProtocolType,jdbcType=VARCHAR},
+      </if>
+      <if test="nbDeviceType != null">
+        #{nbDeviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="udpWebsocketPort != null">
+        #{udpWebsocketPort,jdbcType=INTEGER},
+      </if>
+      <if test="ftpUrl != null">
+        #{ftpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="hardware != null">
+        #{hardware,jdbcType=VARCHAR},
+      </if>
+      <if test="videoIp != null">
+        #{videoIp,jdbcType=VARCHAR},
+      </if>
+      <if test="videoPort != null">
+        #{videoPort,jdbcType=INTEGER},
+      </if>
+      <if test="videoUser != null">
+        #{videoUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoPassword != null">
+        #{videoPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="nokiaUserName != null">
+        #{nokiaUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="nokiaPassword != null">
+        #{nokiaPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="nokiaIdentifier != null">
+        #{nokiaIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="nokiaGroupName != null">
+        #{nokiaGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="onenetAppkey != null">
+        #{onenetAppkey,jdbcType=VARCHAR},
+      </if>
+      <if test="onenetToken != null">
+        #{onenetToken,jdbcType=VARCHAR},
+      </if>
+      <if test="smokeDetectorPartnerid != null">
+        #{smokeDetectorPartnerid,jdbcType=VARCHAR},
+      </if>
+      <if test="smokeDetectorPartnerKey != null">
+        #{smokeDetectorPartnerKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glodio.bean.ConnectPlatform">
+    update connect_platform
+    <set>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="http != null">
+        http = #{http,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="nbAppid != null">
+        nb_appId = #{nbAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="nbSecret != null">
+        nb_secret = #{nbSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="nbCa != null">
+        nb_ca = #{nbCa,jdbcType=VARCHAR},
+      </if>
+      <if test="nbCaPassword != null">
+        nb_ca_password = #{nbCaPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="nbPkcs12 != null">
+        nb_pkcs12 = #{nbPkcs12,jdbcType=VARCHAR},
+      </if>
+      <if test="nbPkcs12Password != null">
+        nb_pkcs12_password = #{nbPkcs12Password,jdbcType=VARCHAR},
+      </if>
+      <if test="nbManufacturerId != null">
+        nb_manufacturer_id = #{nbManufacturerId,jdbcType=VARCHAR},
+      </if>
+      <if test="nbManufacturerName != null">
+        nb_manufacturer_name = #{nbManufacturerName,jdbcType=VARCHAR},
+      </if>
+      <if test="nbModel != null">
+        nb_model = #{nbModel,jdbcType=VARCHAR},
+      </if>
+      <if test="nbProtocolType != null">
+        nb_protocol_type = #{nbProtocolType,jdbcType=VARCHAR},
+      </if>
+      <if test="nbDeviceType != null">
+        nb_device_type = #{nbDeviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="udpWebsocketPort != null">
+        udp_websocket_port = #{udpWebsocketPort,jdbcType=INTEGER},
+      </if>
+      <if test="ftpUrl != null">
+        ftp_url = #{ftpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="hardware != null">
+        hardware = #{hardware,jdbcType=VARCHAR},
+      </if>
+      <if test="videoIp != null">
+        video_ip = #{videoIp,jdbcType=VARCHAR},
+      </if>
+      <if test="videoPort != null">
+        video_port = #{videoPort,jdbcType=INTEGER},
+      </if>
+      <if test="videoUser != null">
+        video_user = #{videoUser,jdbcType=VARCHAR},
+      </if>
+      <if test="videoPassword != null">
+        video_password = #{videoPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="nokiaUserName != null">
+        nokia_user_name = #{nokiaUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="nokiaPassword != null">
+        nokia_password = #{nokiaPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="nokiaIdentifier != null">
+        nokia_identifier = #{nokiaIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="nokiaGroupName != null">
+        nokia_group_name = #{nokiaGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="onenetAppkey != null">
+        onenet_appkey = #{onenetAppkey,jdbcType=VARCHAR},
+      </if>
+      <if test="onenetToken != null">
+        onenet_token = #{onenetToken,jdbcType=VARCHAR},
+      </if>
+      <if test="smokeDetectorPartnerid != null">
+        smoke_detector_partnerid = #{smokeDetectorPartnerid,jdbcType=VARCHAR},
+      </if>
+      <if test="smokeDetectorPartnerKey != null">
+        smoke_detector_partner_key = #{smokeDetectorPartnerKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glodio.bean.ConnectPlatform">
+    update connect_platform
+    set type_id = #{typeId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      http = #{http,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ip = #{ip,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      nb_appId = #{nbAppid,jdbcType=VARCHAR},
+      nb_secret = #{nbSecret,jdbcType=VARCHAR},
+      nb_ca = #{nbCa,jdbcType=VARCHAR},
+      nb_ca_password = #{nbCaPassword,jdbcType=VARCHAR},
+      nb_pkcs12 = #{nbPkcs12,jdbcType=VARCHAR},
+      nb_pkcs12_password = #{nbPkcs12Password,jdbcType=VARCHAR},
+      nb_manufacturer_id = #{nbManufacturerId,jdbcType=VARCHAR},
+      nb_manufacturer_name = #{nbManufacturerName,jdbcType=VARCHAR},
+      nb_model = #{nbModel,jdbcType=VARCHAR},
+      nb_protocol_type = #{nbProtocolType,jdbcType=VARCHAR},
+      nb_device_type = #{nbDeviceType,jdbcType=VARCHAR},
+      udp_websocket_port = #{udpWebsocketPort,jdbcType=INTEGER},
+      ftp_url = #{ftpUrl,jdbcType=VARCHAR},
+      hardware = #{hardware,jdbcType=VARCHAR},
+      video_ip = #{videoIp,jdbcType=VARCHAR},
+      video_port = #{videoPort,jdbcType=INTEGER},
+      video_user = #{videoUser,jdbcType=VARCHAR},
+      video_password = #{videoPassword,jdbcType=VARCHAR},
+      nokia_user_name = #{nokiaUserName,jdbcType=VARCHAR},
+      nokia_password = #{nokiaPassword,jdbcType=VARCHAR},
+      nokia_identifier = #{nokiaIdentifier,jdbcType=VARCHAR},
+      nokia_group_name = #{nokiaGroupName,jdbcType=VARCHAR},
+      onenet_appkey = #{onenetAppkey,jdbcType=VARCHAR},
+      onenet_token = #{onenetToken,jdbcType=VARCHAR},
+      smoke_detector_partnerid = #{smokeDetectorPartnerid,jdbcType=VARCHAR},
+      smoke_detector_partner_key = #{smokeDetectorPartnerKey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <!--下面是手动添加的sql语句-->
+   <select id="selectList" resultMap="BaseResultMap">
+    select id,name,ip,port,http,create_time
+    from connect_platform
+  </select>
+  
+  <select id="selectAllList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from connect_platform
+  </select>
+  
+  <select id="selectListByTypeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select id,name,type_id,ip from connect_platform where type_id = #{nokiaGroupName,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

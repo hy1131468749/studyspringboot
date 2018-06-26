@@ -1,0 +1,73 @@
+#well{
+	width: 100%;
+	height: 100%;
+}
+#wellTable{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+#owellTable{
+	width: calc(100% + 18px);
+	height: calc(100% - 38px);
+	overflow-y: scroll;
+}
+#wellRight{
+	height: 100%;
+	width: 360px;
+	float: left;
+}
+#wellWarn{
+	margin-top: 20px;
+	width: 100%;
+	min-width: 360px;
+	height: calc(40% - 10px);
+	overflow: hidden;
+}
+#wellMap{
+	height: 100%;
+	width: calc(100% - 380px);
+	float: left;
+	margin-right: 20px;
+	background-color: #48cdc7;
+}
+#owellTable li{
+	list-style: none;
+	height: 10%;
+	width: 100%;
+	font-size: 14px;
+	text-align: center;
+}
+#owellTable li:nth-of-type(1){
+	font-weight: bold;
+}
+#owellTable li span{
+	display: block;
+	float: left;
+	height: 100%;
+	width: 33%;
+}
+#owellTable li span:nth-of-type(1){
+	width: 34%;
+	height: 100%;
+}
+
+.warnTitle{
+	margin: 0px;
+	font-size: 25px;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background-color: #48cdc7;
+	font-weight: 400;
+	text-align: center;
+	color: #000;
+    font-weight: 300;
+}
+#wellWarnContent{
+	height: calc(100% - 40px);
+	width: calc(100% + 18px);
+	overflow-y: scroll;
+	padding: 20px;
+	box-sizing: border-box;
+}

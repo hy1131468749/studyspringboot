@@ -1,0 +1,35 @@
+<div id="well">
+	
+	<div id="wellMap" class="shodowAndBorder">
+			
+	</div>
+	
+	<div id="wellRight">
+		<div id="wellTable" class="shodowAndBorder">
+			<h2 class="titleModule">
+				<span class="blue"></span>
+				设备信息:
+			</h2>
+			<div id="owellTable">
+				<li>
+					<span>监控点</span>
+					<span>开启</span>
+					<span>水位</span>
+
+				</li>
+				<li ng-if="wellDevlist.length" ng-repeat="devData in wellDevlist">
+					<span ng-bind="devData.deviceName"  style="word-wrap: break-word;"></span>
+					<span ng-class="devData.isOpen | devWarnClass" ng-bind="devData.isOpen"></span>
+					<span ng-class="devData.waterLine | devWarnClass" ng-bind="devData.waterLine"></span>
+
+				</li>
+				<!--<li>
+					<span>鸿山赏石园</span>
+					<span class="colorGreen">正常</span>
+					<span class="colorGreen">正常</span>
+
+				</li>-->
+			</div>
+		</div>
+	</div>
+</div>

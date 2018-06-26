@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glodio.dao.DeviceSmokeDetectorMapper">
+  <resultMap id="BaseResultMap" type="com.glodio.bean.DeviceSmokeDetector">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="if1" jdbcType="VARCHAR" property="if1" />
+    <result column="if1_status" jdbcType="INTEGER" property="if1Status" />
+    <result column="if2" jdbcType="VARCHAR" property="if2" />
+    <result column="if2_status" jdbcType="INTEGER" property="if2Status" />
+    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
+    <result column="report_day" jdbcType="DATE" property="reportDay" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, device_id, device_name, lat, lng, if1, if1_status, if2, if2_status, report_time, 
+    report_day
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_smoke_detector
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from device_smoke_detector
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.glodio.bean.DeviceSmokeDetector">
+    insert into device_smoke_detector (id, device_id, device_name, 
+      lat, lng, if1, if1_status, 
+      if2, if2_status, report_time, 
+      report_day)
+    values (#{id,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, 
+      #{lat,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, #{if1,jdbcType=VARCHAR}, #{if1Status,jdbcType=INTEGER}, 
+      #{if2,jdbcType=VARCHAR}, #{if2Status,jdbcType=INTEGER}, #{reportTime,jdbcType=TIMESTAMP}, 
+      #{reportDay,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glodio.bean.DeviceSmokeDetector">
+    insert into device_smoke_detector
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="if1 != null">
+        if1,
+      </if>
+      <if test="if1Status != null">
+        if1_status,
+      </if>
+      <if test="if2 != null">
+        if2,
+      </if>
+      <if test="if2Status != null">
+        if2_status,
+      </if>
+      <if test="reportTime != null">
+        report_time,
+      </if>
+      <if test="reportDay != null">
+        report_day,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="if1 != null">
+        #{if1,jdbcType=VARCHAR},
+      </if>
+      <if test="if1Status != null">
+        #{if1Status,jdbcType=INTEGER},
+      </if>
+      <if test="if2 != null">
+        #{if2,jdbcType=VARCHAR},
+      </if>
+      <if test="if2Status != null">
+        #{if2Status,jdbcType=INTEGER},
+      </if>
+      <if test="reportTime != null">
+        #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportDay != null">
+        #{reportDay,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glodio.bean.DeviceSmokeDetector">
+    update device_smoke_detector
+    <set>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="if1 != null">
+        if1 = #{if1,jdbcType=VARCHAR},
+      </if>
+      <if test="if1Status != null">
+        if1_status = #{if1Status,jdbcType=INTEGER},
+      </if>
+      <if test="if2 != null">
+        if2 = #{if2,jdbcType=VARCHAR},
+      </if>
+      <if test="if2Status != null">
+        if2_status = #{if2Status,jdbcType=INTEGER},
+      </if>
+      <if test="reportTime != null">
+        report_time = #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportDay != null">
+        report_day = #{reportDay,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glodio.bean.DeviceSmokeDetector">
+    update device_smoke_detector
+    set device_id = #{deviceId,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      if1 = #{if1,jdbcType=VARCHAR},
+      if1_status = #{if1Status,jdbcType=INTEGER},
+      if2 = #{if2,jdbcType=VARCHAR},
+      if2_status = #{if2Status,jdbcType=INTEGER},
+      report_time = #{reportTime,jdbcType=TIMESTAMP},
+      report_day = #{reportDay,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!--手动添加的sql-->
+  <select id="selectByDeviceIds" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from device_smoke_detector where  device_id in
+    <foreach collection="list" item="deviceId" separator="," open="(" close=")">
+            #{deviceId,jdbcType=VARCHAR}
+    </foreach>
+  </select>
+   
+   <select id="selectByDeviceId" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from device_smoke_detector where  device_id =  #{deviceId,jdbcType=VARCHAR}
+  </select>
+   
+    
+</mapper>

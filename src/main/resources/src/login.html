@@ -1,0 +1,59 @@
+<div id="login">
+	<div id="login_bg">
+		<img src="./public/img/login.jpg"/>
+	</div>
+	<!--输入框模块-->
+	<div id="formSumit">
+		<h3 class="formSumit_title">用户登录</h3>
+		<div class="input-group">
+		  <span class="input-group-addon" id="sizing-addon3"><i class="glyphicon glyphicon-user"></i></span>
+		  <input ng-model="userName" type="text" class="form-control" placeholder="用户名" aria-describedby="sizing-addon3">
+		</div>
+		<div class="input-group">
+		  <span class="input-group-addon" id="sizing-addon3"><i class="glyphicon glyphicon-lock"></i></span>
+		  <input ng-model="passward" type="password" class="form-control" placeholder="密码" aria-describedby="sizing-addon3">
+		</div>
+		<div>
+			<input type="checkbox" /> <span class="colorWhite">记住我</span>
+		</div>
+		
+		<button type="button" class="btn btn-info" ng-click="subMit()">
+			登录
+		</button>
+	</div>
+	
+	<h3 id="login_title">
+		智能燃气烟感监测平台
+	</h3>
+		
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="valNullModal" tabindex="-1" role="dialog" aria-labelledby="valNullModalTitle" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="valNullModalTitle">系统提示</h4>
+	            </div>
+	            <div class="modal-body">账号密码都不能为空</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalTitle" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="errorModalTitle">系统提示</h4>
+	            </div>
+	            <div class="modal-body">账号或者密码不正确</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</div>

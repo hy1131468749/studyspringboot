@@ -1,0 +1,31 @@
+<div id="dustbin">
+	<div id="dustbinMap" class="shodowAndBorder"></div>
+	<div id="dustbinLeft">
+		<div id="dustbinTable" class="shodowAndBorder">
+			<h2 class="titleModule">
+				<span class="blue"></span>
+				 垃圾桶监测点:
+			</h2>
+			<div id="odustbinTable">
+				<li>
+					<span>设备名称</span>
+					<p>
+						<span>左桶</span>
+						<span>右桶</span>
+						<span>烟雾</span>
+						<span>倾倒</span>
+					</p>
+				</li>
+				<div id="tBody">
+					<li ng-if="dustbinDevlist.length" ng-repeat="devData in dustbinDevlist">
+						<span ng-bind="devData.deviceName" style="word-wrap: break-word;"></span>
+						<span ng-class="devData.fullLeft | devWarnClass" ng-bind="devData.fullLeft"></span>
+						<span ng-class="devData.fullRight | devWarnClass" ng-bind="devData.fullRight"></span>
+						<span ng-class="devData.smokeStatus | devWarnClass" ng-bind="devData.smokeStatus"></span>
+						<span ng-class="devData.obliquityStatus | devWarnClass" ng-bind="devData.obliquityStatus"></span>
+					</li>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

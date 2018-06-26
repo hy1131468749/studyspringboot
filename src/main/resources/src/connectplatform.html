@@ -1,0 +1,262 @@
+<div id="devices">
+	<div id="addPrent">
+		<button type="button" class="btn btn-primary" id="addUser" data-toggle="modal" data-target="#addModal_d" ng-click="showUser(0)">添加对接平台</button>
+	</div>
+	<div id="tables_d">
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="16%">协议名称</th>
+					<th width="10%">WEB协议</th>
+					<th width="10%">IP地址</th>
+					<th width="10%">port端口号</th>
+					<th width="12%">创建时间</th>
+					<th width="10%">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cpData in cpList">
+					<td ng-bind="cpData.name"></td>
+					<td ng-bind="cpData.http"></td>
+					<td ng-bind="cpData.ip"></td>
+					<td ng-bind="cpData.port"></td>
+					<td ng-bind="cpData.createTime"></td>
+					<td>
+						<button type="button" class="btn btn-info btn-xsZdy"  data-toggle="modal" data-target="#addModal_d" ng-click="showUser(1,cpData.id)">修改</button>
+						<button type="button" class="btn btn-danger btn-xsZdy" data-toggle="modal" data-target="#removeModal" ng-click="isCpId(cpData.id)">删除</button>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+	<div id="bottomPage">
+		<input id="inputPage" ng-model="pageNumber" /><span class="boldfont"> / <span id="total" ></span> 页 </span>
+		
+		<button type="button" class="btn btn-default btnBlue margin20" ng-click="gotoPage()" >Go</button>
+		<div class="btn-group">
+		    <button type="button" class="btn btn-default btnBlue" ng-click="prevPage()">上一页</button>
+		    <button type="button" class="btn btn-default btnBlue" ng-click="nextPage()" >下一页</button>
+		</div>
+		<span class="pull-right">每页10条</span>
+	</div>
+	
+	<!-- 删除模态框（Modal） -->
+	<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel1">系统提示</h4>
+	            </div>
+	            <div class="modal-body">确定删除这个对接平台吗？</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                <button type="button" class="btn btn-primary" ng-click="removeConnectPlatform()">确定</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- 新增和编辑模态框（Modal） -->
+	<div class="modal fade" id="addModal_d" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel2" ng-bind="addTitle"></h4>
+	            </div>
+	            <div class="modal-body">
+	            	<form class="form-horizontal" role="form" id="addConnectPlatform" >
+					  <div   ng-class="{'has-error':isTypeId}" class="form-group">
+							<label for="typeId" class="col-sm-4 control-label">平台类型</label>
+							<div class="col-sm-8">
+								<select  id="typeId"  name="typeId"  ng-model="typeId" class="form-control"   ng-change="selectTypeIdChange(typeId)" >
+								<option value=""  >--请选择平台类型--</option>
+								</select>
+							</div>
+					 </div>
+					 <div ng-class="{'has-error':isName}" class="form-group">
+							<label for="name" class="col-sm-4 control-label">平台协议名称</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="name" name="name" ng-model="name" placeholder="请输入对接平台名称">
+							</div>
+					</div>	
+					  
+					<div ng-class="{'has-error':isHttp}" class="form-group">
+							<label for="http" class="col-sm-4 control-label">web应用协议</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="http"  name="http" ng-model="http" placeholder="请输入web应用协议">
+							</div>
+					</div>					
+					<div ng-class="{'has-error':isIp}" class="form-group">
+							<label for="nbIp" class="col-sm-4 control-label">应用服务器地址</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="ip" name="ip"  ng-model="ip" placeholder="请输入应用服务器地址">
+							</div>
+					</div>
+					<div ng-class="{'has-error':isPort}" class="form-group">
+							<label for="port" class="col-sm-4 control-label">应用服务器端口</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="port"  name="port" ng-model="port" placeholder="请输入应用服务器端口">
+							</div>
+					</div>
+					  
+					  <div style="display: none;" id="typediv1" > 	
+										
+						<div ng-class="{'has-error':isNbAppid}" class="form-group">
+							<label for="nbAppid" class="col-sm-4 control-label">应用appid</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbAppid" name="nbAppid" ng-model="nbAppid" placeholder="请输入应用appid">
+							</div>
+						</div>
+						<div ng-class="{'has-error':isNbSecret}" class="form-group">
+							<label for="nbSecret" class="col-sm-4 control-label">应用secret</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbSecret" name="nbSecret" ng-model="nbSecret" placeholder="请输入应用secret">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbCa" class="col-sm-4 control-label">服务器证书</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbCa" name="nbCa" ng-model="nbCa" placeholder="请输入服务器证书" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbCaPassword" class="col-sm-4 control-label">服务器证书密钥</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbCaPassword" name="nbCaPassword" ng-model="nbCaPassword" placeholder="请输入服务器证书密钥" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbPkcs12" class="col-sm-4 control-label">应用端证书</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbPkcs12"  name="nbPkcs12" ng-model="nbPkcs12" placeholder="请输入应用端证书" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbPkcs12Password" class="col-sm-4 control-label">应用端证书密钥</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbPkcs12Password" name="nbPkcs12Password" ng-model="nbPkcs12Password" placeholder="请输入应用端证书密钥" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbManufacturerId" class="col-sm-4 control-label">应用厂商id</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbManufacturerId" name="nbManufacturerId" ng-model="nbManufacturerId" placeholder="请输入应用厂商id" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbManufacturerName" class="col-sm-4 control-label">应用厂商名</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbManufacturerName" name="nbManufacturerName" ng-model="nbManufacturerName" placeholder="请输入应用厂商名" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbModel" class="col-sm-4 control-label">应用设备名</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbModel" name="nbModel" ng-model="nbModel" placeholder="请输入应用设备名" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbProtocolType" class="col-sm-4 control-label">应用设备通讯协议</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbProtocolType" name="nbProtocolType"  ng-model="nbProtocolType" placeholder="请输入应用设备通讯协议" ></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="nbProtocolType" class="col-sm-4 control-label">应用设备类型</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nbDeviceType" name="nbDeviceType" ng-model="nbDeviceType"  placeholder="请输入应用设备类型" ></textarea>
+							</div>
+						</div>
+					  </div>
+					  <!--udp的数据 -->
+                      <div style="display: none;" id="typediv2"  class="form-group">
+                      
+						<div class="form-group" ng-class="{'has-error':isUdpWebsocketPort}" >
+							<label for="udpWebsocketPort" class="col-sm-4 control-label">webscoket端口号</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="udpWebsocketPort" name="udpWebsocketPort" ng-model="udpWebsocketPort"  placeholder="请输入webscoket端口号" ></textarea>
+							</div>
+						</div>
+                      </div>
+                      
+                      <!--nokia的数据-->
+                     <div style="display: none;" id="typediv3" >
+                       <div class="form-group" ng-class="{'has-error':isNokiaUserName}" >
+							<label for="nokiaUserName" class="col-sm-4 control-label">用户名</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nokiaUserName" name="nokiaUserName" ng-model="nokiaUserName"  placeholder="请输入用户名" ></textarea>
+							</div>
+					  </div>
+					  <div class="form-group" ng-class="{'has-error':isNokiaPassword}" >
+							<label for="nokiaPassword" class="col-sm-4 control-label">密码</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nokiaPassword" name="nokiaPassword" ng-model="nokiaPassword"  placeholder="请输入密码" ></textarea>
+							</div>
+					  </div>
+					  <div class="form-group">
+							<label for="nokiaIdentifier" class="col-sm-4 control-label">nokiaIdentifier</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nokiaIdentifier" name="nokiaIdentifier" ng-model="nokiaIdentifier"  placeholder="请输入nokiaIdentifier" ></textarea>
+							</div>
+					  </div>
+					  <div class="form-group">
+							<label for="nokiaGroupName" class="col-sm-4 control-label">nokiaGroupName</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="nokiaGroupName" name="nokiaGroupName" ng-model="nokiaGroupName"  placeholder="请输入nokiaGroupName" ></textarea>
+							</div>
+					  </div>
+                     </div> 
+						
+						
+					   <!--onenet的数据-->
+                     <div style="display: none;" id="typediv4" >
+                       <div class="form-group" ng-class="{'has-error':isOnenetAppkey}" >
+							<label for="onenetAppkey" class="col-sm-4 control-label">onenetAppKey</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="onenetAppkey" name="onenetAppkey" ng-model="onenetAppkey"  placeholder="请输入onenetAppKey" ></textarea>
+							</div>
+					  </div>
+					  <div class="form-group" ng-class="{'has-error':isOnenetToken}" >
+							<label for="onenetToken" class="col-sm-4 control-label">onenetToken</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="onenetToken" name="onenetToken" ng-model="onenetToken"  placeholder="请输入onenetToken" ></textarea>
+							</div>
+					  </div>
+					  
+                     </div> 
+                     
+                        <!--燃气平台数据数据-->
+                     <div style="display: none;" id="typediv5" >
+                       <div class="form-group" ng-class="{'has-error':isSmokeDetectorPartnerid}" >
+							<label for="smokeDetectorPartnerid" class="col-sm-4 control-label">PartnerID</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="smokeDetectorPartnerid" name="smokeDetectorPartnerid" ng-model="smokeDetectorPartnerid"  placeholder="请输入smokeDetectorPartnerid" ></textarea>
+							</div>
+					  </div>
+					  <div class="form-group" ng-class="{'has-error':isSmokeDetectorPartnerKey}" >
+							<label for="smokeDetectorPartnerKey" class="col-sm-4 control-label">PartnerKey</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="smokeDetectorPartnerKey" name="smokeDetectorPartnerKey" ng-model="smokeDetectorPartnerKey"  placeholder="请输入smokeDetectorPartnerKey" ></textarea>
+							</div>
+					  </div>
+					  
+                     </div> 		
+						
+						
+					</form>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                <button type="button" class="btn btn-primary" ng-click="add()">确定</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+    
+    
+
+	
+
+</div>

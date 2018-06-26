@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glodio.dao.DeviceEmgdMapper" >
+  <resultMap id="BaseResultMap" type="com.glodio.bean.DeviceEmgd" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="hun" property="hun" jdbcType="VARCHAR" />
+    <result column="tmp" property="tmp" jdbcType="VARCHAR" />
+    <result column="p25" property="p25" jdbcType="VARCHAR" />
+    <result column="p10" property="p10" jdbcType="VARCHAR" />
+    <result column="so2" property="so2" jdbcType="VARCHAR" />
+    <result column="no2" property="no2" jdbcType="VARCHAR" />
+    <result column="co" property="co" jdbcType="VARCHAR" />
+    <result column="o3" property="o3" jdbcType="VARCHAR" />
+    <result column="ws" property="ws" jdbcType="VARCHAR" />
+    <result column="wd" property="wd" jdbcType="VARCHAR" />
+    <result column="nos" property="nos" jdbcType="VARCHAR" />
+    <result column="wt" property="wt" jdbcType="VARCHAR" />
+    <result column="wo" property="wo" jdbcType="VARCHAR" />
+    <result column="ntu" property="ntu" jdbcType="VARCHAR" />
+    <result column="ms" property="ms" jdbcType="VARCHAR" />
+    <result column="ph" property="ph" jdbcType="VARCHAR" />
+    <result column="bod" property="bod" jdbcType="VARCHAR" />
+    <result column="vocs" property="vocs" jdbcType="VARCHAR" />
+    <result column="rc" property="rc" jdbcType="VARCHAR" />
+    <result column="tph" property="tph" jdbcType="VARCHAR" />
+    <result column="tn" property="tn" jdbcType="VARCHAR" />
+    <result column="chl" property="chl" jdbcType="VARCHAR" />
+    <result column="bga" property="bga" jdbcType="VARCHAR" />
+    <result column="oiw" property="oiw" jdbcType="VARCHAR" />
+    <result column="orp" property="orp" jdbcType="VARCHAR" />
+    <result column="report_time" property="reportTime" jdbcType="TIMESTAMP" />
+    <result column="report_day" property="reportDay" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, device_id, device_name, lat, lng, address, hun, tmp, p25, p10, so2, no2, co, 
+    o3, ws, wd, nos, wt, wo, ntu, ms, ph, bod, vocs, rc, tph, tn, chl, bga, oiw, orp, 
+    report_time, report_day
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from device_emgd
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from device_emgd
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.glodio.bean.DeviceEmgd" >
+    insert into device_emgd (id, device_id, device_name, 
+      lat, lng, address, 
+      hun, tmp, p25, p10, 
+      so2, no2, co, o3, 
+      ws, wd, nos, wt, 
+      wo, ntu, ms, ph, 
+      bod, vocs, rc, tph, 
+      tn, chl, bga, oiw, 
+      orp, report_time, report_day
+      )
+    values (#{id,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, 
+      #{lat,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{hun,jdbcType=VARCHAR}, #{tmp,jdbcType=VARCHAR}, #{p25,jdbcType=VARCHAR}, #{p10,jdbcType=VARCHAR}, 
+      #{so2,jdbcType=VARCHAR}, #{no2,jdbcType=VARCHAR}, #{co,jdbcType=VARCHAR}, #{o3,jdbcType=VARCHAR}, 
+      #{ws,jdbcType=VARCHAR}, #{wd,jdbcType=VARCHAR}, #{nos,jdbcType=VARCHAR}, #{wt,jdbcType=VARCHAR}, 
+      #{wo,jdbcType=VARCHAR}, #{ntu,jdbcType=VARCHAR}, #{ms,jdbcType=VARCHAR}, #{ph,jdbcType=VARCHAR}, 
+      #{bod,jdbcType=VARCHAR}, #{vocs,jdbcType=VARCHAR}, #{rc,jdbcType=VARCHAR}, #{tph,jdbcType=VARCHAR}, 
+      #{tn,jdbcType=VARCHAR}, #{chl,jdbcType=VARCHAR}, #{bga,jdbcType=VARCHAR}, #{oiw,jdbcType=VARCHAR}, 
+      #{orp,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{reportDay,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glodio.bean.DeviceEmgd" >
+    insert into device_emgd
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="hun != null" >
+        hun,
+      </if>
+      <if test="tmp != null" >
+        tmp,
+      </if>
+      <if test="p25 != null" >
+        p25,
+      </if>
+      <if test="p10 != null" >
+        p10,
+      </if>
+      <if test="so2 != null" >
+        so2,
+      </if>
+      <if test="no2 != null" >
+        no2,
+      </if>
+      <if test="co != null" >
+        co,
+      </if>
+      <if test="o3 != null" >
+        o3,
+      </if>
+      <if test="ws != null" >
+        ws,
+      </if>
+      <if test="wd != null" >
+        wd,
+      </if>
+      <if test="nos != null" >
+        nos,
+      </if>
+      <if test="wt != null" >
+        wt,
+      </if>
+      <if test="wo != null" >
+        wo,
+      </if>
+      <if test="ntu != null" >
+        ntu,
+      </if>
+      <if test="ms != null" >
+        ms,
+      </if>
+      <if test="ph != null" >
+        ph,
+      </if>
+      <if test="bod != null" >
+        bod,
+      </if>
+      <if test="vocs != null" >
+        vocs,
+      </if>
+      <if test="rc != null" >
+        rc,
+      </if>
+      <if test="tph != null" >
+        tph,
+      </if>
+      <if test="tn != null" >
+        tn,
+      </if>
+      <if test="chl != null" >
+        chl,
+      </if>
+      <if test="bga != null" >
+        bga,
+      </if>
+      <if test="oiw != null" >
+        oiw,
+      </if>
+      <if test="orp != null" >
+        orp,
+      </if>
+      <if test="reportTime != null" >
+        report_time,
+      </if>
+      <if test="reportDay != null" >
+        report_day,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="hun != null" >
+        #{hun,jdbcType=VARCHAR},
+      </if>
+      <if test="tmp != null" >
+        #{tmp,jdbcType=VARCHAR},
+      </if>
+      <if test="p25 != null" >
+        #{p25,jdbcType=VARCHAR},
+      </if>
+      <if test="p10 != null" >
+        #{p10,jdbcType=VARCHAR},
+      </if>
+      <if test="so2 != null" >
+        #{so2,jdbcType=VARCHAR},
+      </if>
+      <if test="no2 != null" >
+        #{no2,jdbcType=VARCHAR},
+      </if>
+      <if test="co != null" >
+        #{co,jdbcType=VARCHAR},
+      </if>
+      <if test="o3 != null" >
+        #{o3,jdbcType=VARCHAR},
+      </if>
+      <if test="ws != null" >
+        #{ws,jdbcType=VARCHAR},
+      </if>
+      <if test="wd != null" >
+        #{wd,jdbcType=VARCHAR},
+      </if>
+      <if test="nos != null" >
+        #{nos,jdbcType=VARCHAR},
+      </if>
+      <if test="wt != null" >
+        #{wt,jdbcType=VARCHAR},
+      </if>
+      <if test="wo != null" >
+        #{wo,jdbcType=VARCHAR},
+      </if>
+      <if test="ntu != null" >
+        #{ntu,jdbcType=VARCHAR},
+      </if>
+      <if test="ms != null" >
+        #{ms,jdbcType=VARCHAR},
+      </if>
+      <if test="ph != null" >
+        #{ph,jdbcType=VARCHAR},
+      </if>
+      <if test="bod != null" >
+        #{bod,jdbcType=VARCHAR},
+      </if>
+      <if test="vocs != null" >
+        #{vocs,jdbcType=VARCHAR},
+      </if>
+      <if test="rc != null" >
+        #{rc,jdbcType=VARCHAR},
+      </if>
+      <if test="tph != null" >
+        #{tph,jdbcType=VARCHAR},
+      </if>
+      <if test="tn != null" >
+        #{tn,jdbcType=VARCHAR},
+      </if>
+      <if test="chl != null" >
+        #{chl,jdbcType=VARCHAR},
+      </if>
+      <if test="bga != null" >
+        #{bga,jdbcType=VARCHAR},
+      </if>
+      <if test="oiw != null" >
+        #{oiw,jdbcType=VARCHAR},
+      </if>
+      <if test="orp != null" >
+        #{orp,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null" >
+        #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportDay != null" >
+        #{reportDay,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glodio.bean.DeviceEmgd" >
+    update device_emgd
+    <set >
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="hun != null" >
+        hun = #{hun,jdbcType=VARCHAR},
+      </if>
+      <if test="tmp != null" >
+        tmp = #{tmp,jdbcType=VARCHAR},
+      </if>
+      <if test="p25 != null" >
+        p25 = #{p25,jdbcType=VARCHAR},
+      </if>
+      <if test="p10 != null" >
+        p10 = #{p10,jdbcType=VARCHAR},
+      </if>
+      <if test="so2 != null" >
+        so2 = #{so2,jdbcType=VARCHAR},
+      </if>
+      <if test="no2 != null" >
+        no2 = #{no2,jdbcType=VARCHAR},
+      </if>
+      <if test="co != null" >
+        co = #{co,jdbcType=VARCHAR},
+      </if>
+      <if test="o3 != null" >
+        o3 = #{o3,jdbcType=VARCHAR},
+      </if>
+      <if test="ws != null" >
+        ws = #{ws,jdbcType=VARCHAR},
+      </if>
+      <if test="wd != null" >
+        wd = #{wd,jdbcType=VARCHAR},
+      </if>
+      <if test="nos != null" >
+        nos = #{nos,jdbcType=VARCHAR},
+      </if>
+      <if test="wt != null" >
+        wt = #{wt,jdbcType=VARCHAR},
+      </if>
+      <if test="wo != null" >
+        wo = #{wo,jdbcType=VARCHAR},
+      </if>
+      <if test="ntu != null" >
+        ntu = #{ntu,jdbcType=VARCHAR},
+      </if>
+      <if test="ms != null" >
+        ms = #{ms,jdbcType=VARCHAR},
+      </if>
+      <if test="ph != null" >
+        ph = #{ph,jdbcType=VARCHAR},
+      </if>
+      <if test="bod != null" >
+        bod = #{bod,jdbcType=VARCHAR},
+      </if>
+      <if test="vocs != null" >
+        vocs = #{vocs,jdbcType=VARCHAR},
+      </if>
+      <if test="rc != null" >
+        rc = #{rc,jdbcType=VARCHAR},
+      </if>
+      <if test="tph != null" >
+        tph = #{tph,jdbcType=VARCHAR},
+      </if>
+      <if test="tn != null" >
+        tn = #{tn,jdbcType=VARCHAR},
+      </if>
+      <if test="chl != null" >
+        chl = #{chl,jdbcType=VARCHAR},
+      </if>
+      <if test="bga != null" >
+        bga = #{bga,jdbcType=VARCHAR},
+      </if>
+      <if test="oiw != null" >
+        oiw = #{oiw,jdbcType=VARCHAR},
+      </if>
+      <if test="orp != null" >
+        orp = #{orp,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null" >
+        report_time = #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportDay != null" >
+        report_day = #{reportDay,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glodio.bean.DeviceEmgd" >
+    update device_emgd
+    set device_id = #{deviceId,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      hun = #{hun,jdbcType=VARCHAR},
+      tmp = #{tmp,jdbcType=VARCHAR},
+      p25 = #{p25,jdbcType=VARCHAR},
+      p10 = #{p10,jdbcType=VARCHAR},
+      so2 = #{so2,jdbcType=VARCHAR},
+      no2 = #{no2,jdbcType=VARCHAR},
+      co = #{co,jdbcType=VARCHAR},
+      o3 = #{o3,jdbcType=VARCHAR},
+      ws = #{ws,jdbcType=VARCHAR},
+      wd = #{wd,jdbcType=VARCHAR},
+      nos = #{nos,jdbcType=VARCHAR},
+      wt = #{wt,jdbcType=VARCHAR},
+      wo = #{wo,jdbcType=VARCHAR},
+      ntu = #{ntu,jdbcType=VARCHAR},
+      ms = #{ms,jdbcType=VARCHAR},
+      ph = #{ph,jdbcType=VARCHAR},
+      bod = #{bod,jdbcType=VARCHAR},
+      vocs = #{vocs,jdbcType=VARCHAR},
+      rc = #{rc,jdbcType=VARCHAR},
+      tph = #{tph,jdbcType=VARCHAR},
+      tn = #{tn,jdbcType=VARCHAR},
+      chl = #{chl,jdbcType=VARCHAR},
+      bga = #{bga,jdbcType=VARCHAR},
+      oiw = #{oiw,jdbcType=VARCHAR},
+      orp = #{orp,jdbcType=VARCHAR},
+      report_time = #{reportTime,jdbcType=TIMESTAMP},
+      report_day = #{reportDay,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!--手动添加sql语句-->
+   <select id="selectByDeviceId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from device_emgd
+    where device_id = #{device_id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByDeviceIds" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from device_emgd where  device_id in
+    <foreach collection="list" item="deviceId" separator="," open="(" close=")">
+            #{deviceId,jdbcType=VARCHAR}
+    </foreach>
+  </select>
+  
+  <select id="selectLastByDeviceIds" parameterType="java.util.List" resultMap="BaseResultMap"  >
+       select * from device_emgd d INNER JOIN (select device_id ,max(report_time) report_time from device_emgd
+         where device_id in
+         <foreach collection="list" separator="," open="(" close=")" item="deviceId" >
+            #{deviceId,jdbcType=VARCHAR}
+         </foreach>
+         GROUP BY device_id ) dd 
+         on d.device_id = dd.device_id and d.report_time = dd.report_time
+  </select>
+</mapper>

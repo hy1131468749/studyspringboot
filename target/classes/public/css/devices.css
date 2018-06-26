@@ -1,0 +1,112 @@
+#devices{
+	width: 100%;
+	height: 100%;
+	background-color: #012238;
+	overflow: hidden;
+}
+#tables_d{
+	width: calc(100% + 17px);
+	height: calc(100% - 100px);
+	overflow-y: scroll;
+	border-bottom: 1px solid #ccc;
+	box-sizing: border-box;
+	color: #e3e4e4;
+}
+#bottomPage{
+	height: 50px;
+	width: 100%;
+	line-height: 50px;
+	padding: 0px 30px;
+	color: #337ab7;
+}
+.btnBlue{
+	border-color: #3F51B5;
+    color: #2525d0;
+    outline: none !important;
+}
+.btnBlue:hover{
+	border-color: #8a96d8;
+    color: #5353c5;
+}
+.margin20{
+	margin-right: 20px;
+}
+#inputPage{
+	height: 34px;
+	width: 50px;
+	padding: 0px 8px;
+	vertical-align: middle;
+	border-radius: 4px;
+	border: 1px solid #aaa;
+	text-align: center;
+	outline: none;
+}
+.boldfont{
+	font-weight: bold;
+}
+#addPrent{
+	height: 50px;
+	line-height: 50px;
+	padding-left: 20px;
+	box-sizing: border-box;
+}
+#addUser{
+	
+}
+#tables_d thead tr th:nth-of-type(n + 2){
+	text-align: center;
+}
+#tables_d tbody tr td:nth-of-type(n + 2){
+	text-align: center;
+}
+#tables_d .table-hover > tbody > tr:hover {
+    background-color: #012c48;
+}
+#tables_d table th,#tables_d table td{
+	border-color: #337ab7;
+}
+#tables_d table{
+	border-color: #337ab7;
+}
+button{
+	outline: none !important;
+}
+.btn-xsZdy{
+	padding: 2px 15px;
+}
+#addDevMapParent{
+	padding: 0px 12px;
+	position: relative;
+}
+#addDevMap{
+	background-color: blue;
+	height: 260px;
+	width: 574px;
+}
+.tangram-suggestion-main {
+    z-index: 9999;
+    overflow: scroll;
+}
+#addDevMapParent{
+	font-size: 14px;
+}
+#r-result{
+	padding-bottom: 10px;
+}
+.btn-info{
+	background-color: #0abdb5 !important;
+}
+.btn-info:hover{
+	background-color: #0a9690 !important;
+}
+table td,table th{
+	white-space:nowrap;
+}
+#wellModule .form-group label{
+	font-size: 14px;
+	font-weight: normal;
+}
+.unitSpan{
+	line-height: 34px;
+    font-size: 14px;
+}

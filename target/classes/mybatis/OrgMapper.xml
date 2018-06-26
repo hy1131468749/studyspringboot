@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glodio.dao.IOrgDAO">
+	<resultMap id="BaseResultMap" type="com.glodio.bean.Org">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+		<result column="org_level" property="orgLevel" jdbcType="INTEGER" />
+		<result column="org_manager" property="orgManager" jdbcType="VARCHAR" />
+		<result column="parent_name" property="parentName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="org_id" property="orgId" jdbcType="INTEGER" />
+		<result column="org_phone" property="orgPhone" jdbcType="VARCHAR" />
+		<result column="org_address" property="orgAddress" jdbcType="VARCHAR" />
+		<result column="org_photo" property="orgPhoto" jdbcType="VARCHAR" />
+		<result column="org_type" property="orgType" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.glodio.bean.Org"
+		extends="BaseResultMap">
+		<result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, org_name, org_level, org_manager,parent_name,parent_id, org_id, org_phone,
+		org_address, org_photo,org_type,create_time,modify_time
+	</sql>
+	<sql id="Blob_Column_List">
+		remark
+	</sql>
+
+	<delete id="deleteBean" parameterType="java.lang.String">
+		delete from org
+		where org_name = #{orgName,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from org
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+
+	<select id="queryBean" resultType="com.glodio.bean.Org">
+		select
+		<include refid="Base_Column_List" />
+		from org where org_name = #{orgName,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="queryBeanForId" resultType="com.glodio.bean.Org">
+		select
+		<include refid="Base_Column_List" />,remark
+		from org where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	
+	<select id="queryBeanForOrgId" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" /> 
+		from org where org_id = #{orgId,jdbcType=INTEGER}
+	</select>
+	<!-- 通过当前父id下的所有子机构中最大的机构id -->
+	<select id="queryBeanForMaxSubId" resultType="com.glodio.bean.Org">
+		select parent_id,max(org_id) as org_id from org where parent_id
+		=#{parentId,jdbcType=INTEGER}
+	</select>
+	<select id="queryBeans" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select * from org where org_name like concat(concat("%",#{orgName}),"%")
+	</select>
+	<select id="queryBeansForParentName" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select * from org where parent_name=#{parentName,jdbcType=VARCHAR}
+	</select>
+	<select id="queryByPage" resultMap="ResultMapWithBLOBs"
+		parameterType="java.util.Map">
+		select * from org limit #{pageNumber},#{pageSize}
+	</select>
+	<select id="queryAllCount" resultType="int">
+		select count(*) from org
+	</select>
+	
+
+	<!-- 查找parent_id为orgId的orgId集合 -->
+	<select id="queryOrgIdListForParentId" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+		select org_id from org where parent_id=#{orgId};
+
+	</select>
+
+	<!-- 查找符合list集合对应的org_id -->
+	<select id="queryOrgIdCollection" resultType="java.lang.Integer"
+		parameterType="java.util.List">
+		select org_id from org
+		<where>
+			parent_id in
+			<foreach collection="list" item="item" index="index" open="("
+				separator="," close=")">#{item}</foreach>
+		</where>
+	</select>
+	
+	<select id="queryAllBeans" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select * from org
+	</select>
+
+	<!-- 查询符合集合中的数据集合,其中list为当前用户所属机构包含的所有机构id集合 -->
+	<select id="queryBeansForOrgId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select * from (
+		select * from org where org_id in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">#{item}</foreach>
+		) as a order by modify_time desc limit #{pageNumber},#{pageSize}
+	</select>
+	<!-- 查询总数，根据当前用户所属机构包含的所有机构集合总数 -->
+	<select id="queryAllCountForOrgId" resultType="int"
+		parameterType="java.util.List">
+		select count(*) from org where org_id in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">#{item}</foreach>
+	</select>
+
+	<insert id="addBean" parameterType="com.glodio.bean.Org">
+		insert into org (id, org_name, org_level, org_manager,parent_name,
+		parent_id, org_id, org_phone,
+		org_address, org_photo, org_type,remark,create_time,modify_time
+		)
+		values (#{id,jdbcType=INTEGER}, #{orgName,jdbcType=VARCHAR},
+		#{orgLevel,jdbcType=INTEGER}, #{orgManager,jdbcType=VARCHAR},#{parentName,jdbcType=VARCHAR},
+		#{parentId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER},
+		#{orgPhone,jdbcType=VARCHAR},
+		#{orgAddress,jdbcType=VARCHAR},
+		#{orgPhoto,jdbcType=VARCHAR},#{orgType,jdbcType=INTEGER},#{remark,jdbcType=TIMESTAMP},#{createTime,jdbcType=LONGVARCHAR},
+		#{modifyTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="updateBean" parameterType="com.glodio.bean.Org">
+		update org
+		<set>
+			<if test="orgName != null">
+				org_name = #{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgLevel != null">
+				org_level = #{orgLevel,jdbcType=INTEGER},
+			</if>
+			<if test="orgManager != null">
+				org_manager = #{orgManager,jdbcType=VARCHAR},
+			</if>
+			<if test="parentName != null">
+				parent_name = #{parentName,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=INTEGER},
+			</if>
+			<if test="orgPhone != null">
+				org_phone = #{orgPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="orgAddress != null">
+				org_address = #{orgAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="orgPhoto != null">
+				org_photo = #{orgPhoto,jdbcType=VARCHAR},
+			</if>
+			<if test="orgType != null">
+				org_type = #{orgType,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

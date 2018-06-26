@@ -1,0 +1,88 @@
+
+<script type="text/javascript"
+	src="./public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript"
+	src="./public/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script type="text/javascript"
+	src="./public/zTree_v3-master/js/jquery.ztree.core.js"></script>
+<div id="devices">
+	<div class="form-horizontal" >
+		<div class="form-group">
+		
+		<div class="col-sm-6" >
+			<label class="control-label" style="color: white;width: 16%;" > 开始时间:</label>
+				<input class="form-control" id="startTime"  type="text" style="width: 30%;display: inline;"
+					value="" readonly>
+			<label class="control-label" style="color: white;width: 16%;"> 结束时间:</label>
+			<input class="form-control" id="endTime"  type="text" style="width: 30%;display: inline;"
+					value="" readonly>
+			</div>
+			
+			
+			<div class="col-sm-1" align="right">
+				<label class="control-label" style="color: white;"> 状态:</label>
+			</div>
+			<div class="col-sm-2">
+				<select id="alarmStatus" class="form-control">
+					<option value="">--请选择状态--</option>
+					<option value="0">正常</option>
+					<option value="1">告警</option>
+				</select>
+			</div>
+			<div class="col-sm-2"  align="right"  >
+				<button type="button" class="btn btn-primary" ng-click="queryList()">查询</button>
+			</div>
+		</div>
+
+		
+
+
+	</div>
+	<div id="tables_d" >
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="16%">设备名称</th>
+					<th width="16%">设备imei</th>
+					<th width="16%">设备imsi</th>
+					<th width="10%">信号强度</th>
+					<th width="10%">电量</th>
+					<th width="12%">传感器状态</th>
+					<th width="20%">上报时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="data in dataList">
+				    <td ng-bind="data.deviceName"></td>
+					<td ng-bind="data.deviceId"></td>
+					 <td ng-bind="data.imsi"></td>
+					<td ng-bind="data.signal"></td>
+					<td ng-bind="data.electricity"></td>
+					<td ng-bind="data.alarmStatus"></td>
+					<td ng-bind="data.reportTime"></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<div id="bottomPage">
+		<input id="inputPage" ng-model="pageNumber" /><span class="boldfont">
+			/ <span id="total"></span> 页
+		</span>
+
+		<button type="button" class="btn btn-default btnBlue margin20"
+			ng-click="gotoPage()">Go</button>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default btnBlue"
+				ng-click="prevPage()">上一页</button>
+			<button type="button" class="btn btn-default btnBlue"
+				ng-click="nextPage()">下一页</button>
+		</div>
+		<span class="pull-right">每页10条</span>
+	</div>
+
+
+
+
+</div>

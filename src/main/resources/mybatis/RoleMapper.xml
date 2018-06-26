@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glodio.dao.IRoleDAO">
+	<resultMap id="BaseResultMap" type="com.glodio.bean.Role">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="rolename" property="rolename" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="operation" property="operation" jdbcType="VARCHAR" />
+		<result column="urlremark" property="urlremark" jdbcType="VARCHAR" />
+		<result column="operemark" property="operemark" jdbcType="VARCHAR" />
+		<result column="cjsj" property="cjsj" jdbcType="TIMESTAMP" />
+		<result column="xgsj" property="xgsj" jdbcType="TIMESTAMP" />
+		<result column="org_id" property="orgId" jdbcType="INTEGER" />
+		<result column="org_level" property="orgLevel" jdbcType="INTEGER" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, rolename, url, operation, urlremark,operemark cjsj,
+		xgsj,org_id,org_level,org_name
+	</sql>
+
+	<delete id="deleteBean" parameterType="java.lang.String">
+		delete from role
+		where rolename = #{rolename,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="queryBean" resultType="com.glodio.bean.Role">
+		select
+		<include refid="Base_Column_List" />
+		from role where rolename = #{rolename,jdbcType=VARCHAR}
+	</select>
+	<select id="queryBeanForNameAndOrgid" resultType="com.glodio.bean.Role">
+		select
+		<include refid="Base_Column_List" />
+		from role where rolename = #{rolename,jdbcType=VARCHAR} and org_id=#{orgId,jdbcType=INTEGER}
+	</select>
+	<select id="queryBeans" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from role where rolename like
+		concat(concat("%",#{rolename}),"%")
+	</select>
+	<select id="queryByPage" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select * from role limit #{pageNumber},#{pageSize}
+	</select>
+	<select id="queryAllCount" resultType="int">
+		select count(*) from role
+	</select>
+
+	<!-- 查询符合集合中的数据集合,其中list为当前用户所属机构包含的所有机构id集合 -->
+	<select id="queryBeansForOrgId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select * from (
+		select * from role where org_id in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">#{item}</foreach>
+		) as a order by xgsj desc limit #{pageNumber},#{pageSize}
+	</select>
+	<!-- 查询总数，根据当前用户所属机构包含的所有机构id集合 -->
+	<select id="queryAllCountForOrgId" resultType="int"
+		parameterType="java.util.List">
+		select count(*) from role where org_id in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">#{item}</foreach>
+	</select>
+
+	<insert id="addBean" parameterType="com.glodio.bean.Role">
+		insert into role (id, rolename, url,
+		operation, urlremark, operemark,cjsj,
+		xgsj,org_id,org_level,org_name)
+		values (#{id,jdbcType=INTEGER}, #{rolename,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{operation,jdbcType=VARCHAR}, #{urlremark,jdbcType=VARCHAR},
+		#{operemark,jdbcType=VARCHAR},#{cjsj,jdbcType=TIMESTAMP},
+		#{xgsj,jdbcType=TIMESTAMP},#{orgId,jdbcType=INTEGER},
+		#{orgLevel,jdbcType=INTEGER},#{orgName,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateBean" parameterType="com.glodio.bean.Role">
+		update role
+		<set>
+			<if test="rolename != null">
+				rolename = #{rolename,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="operation != null">
+				operation = #{operation,jdbcType=VARCHAR},
+			</if>
+			<if test="urlremark != null">
+				urlremark = #{urlremark,jdbcType=VARCHAR},
+			</if>
+			<if test="operemark != null">
+				operemark = #{operemark,jdbcType=VARCHAR},
+			</if>
+			<if test="cjsj != null">
+				cjsj = #{cjsj,jdbcType=TIMESTAMP},
+			</if>
+			<if test="xgsj != null">
+				xgsj = #{xgsj,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=INTEGER},
+			</if>
+			<if test="orgLevel != null">
+				org_level = #{orgLevel,jdbcType=INTEGER},
+			</if>
+			<if test="orgName != null">
+				org_name = #{orgName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="selectList" resultMap="BaseResultMap">
+	  select * from role
+	</select>
+	
+	<select id="selectByRoleName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from role where rolename  = #{rolename}
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from role
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="selectById" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+		select *	
+		from role where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	
+	<select id="selectListByOrgId" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+		select *	
+		from role where org_id = #{orgId,jdbcType=INTEGER}
+	</select>
+	
+</mapper>

@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+Implementation-Title: sspringboot
+Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: Administrator
+Implementation-Vendor-Id: com.st
 Build-Jdk: 1.8.0_101
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/sspringboot
 Created-By: Maven Integration for Eclipse
 

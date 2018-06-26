@@ -1,0 +1,59 @@
+#testData{
+	width: 100%;
+	height: 100%;
+}
+#testTable{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+#otestTable{
+	width: calc(100% + 18px);
+	height: calc(100% - 38px);
+	overflow-y: scroll;
+}
+#testRight{
+	height: 100%;
+	width: 100%;
+	float: left;
+}
+#otestTable li{
+	list-style: none;
+	height: 10%;
+	width: 100%;
+	font-size: 14px;
+	text-align: center;
+}
+#otestTable li:nth-of-type(1){
+	font-weight: bold;
+}
+#otestTable li span{
+	display: block;
+	float: left;
+	height: 100%;
+	width: 50%;
+}
+#otestTable li span:nth-of-type(1){
+	width: 50%;
+	height: 100%;
+}
+
+.testTitle{
+	margin: 0px;
+	font-size: 25px;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background-color: #48cdc7;
+	font-weight: 400;
+	text-align: center;
+	color: #000;
+    font-weight: 300;
+}
+#testWarnContent{
+	height: calc(100% - 40px);
+	width: calc(100% + 18px);
+	overflow-y: scroll;
+	padding: 20px;
+	box-sizing: border-box;
+}

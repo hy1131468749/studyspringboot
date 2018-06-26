@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glodio.dao.IUserDAO">
+	<resultMap id="BaseResultMap" type="com.glodio.bean.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="rolename" property="rolename" jdbcType="VARCHAR" />
+		<result column="cjsj" property="cjsj" jdbcType="TIMESTAMP" />
+		<result column="xgsj" property="xgsj" jdbcType="TIMESTAMP" />
+		<result column="last_time" property="lastTime" jdbcType="DATE" />
+		<result column="org_id" property="orgId" jdbcType="INTEGER" />
+		<result column="system_user" property="systemUser" jdbcType="INTEGER" />
+		<result column="url_index" property="urlIndex" jdbcType="VARCHAR" />
+		<result column="org_level" property="orgLevel" jdbcType="INTEGER" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="channel_ids" property="channelIds" jdbcType="LONGVARCHAR" />
+		<result column="alarm_colors" property="alarmColors" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="PartUserMap" type="java.util.HashMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="url_index" property="urlIndex" jdbcType="VARCHAR" />
+		<result column="cjsj" property="cjsj" jdbcType="DATE" />
+		<result column="xgsj" property="xgsj" jdbcType="DATE" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, username, password,
+		rolename,cjsj,xgsj,last_time,system_user,url_index,org_id,org_level,org_name,parent_id,channel_ids,alarm_colors
+	</sql>
+	
+	<sql id="Part_Column_List">
+		id, username, password,
+		cjsj,xgsj,last_time,system_user,url_index
+	</sql>
+	
+	<sql id="User_Column_NoPassword">
+		id, username,
+		rolename,cjsj,xgsj,last_time,system_user,url_index,org_id,org_level,org_name,parent_id,channel_ids,alarm_colors
+	</sql>
+
+	<delete id="deleteBean" parameterType="java.lang.String">
+		delete from user
+		where username = #{username,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from user
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	<select id="queryBeanPassword" resultType="com.glodio.bean.User">
+		select
+		<include refid="Base_Column_List" />
+		from user where username = #{username,jdbcType=VARCHAR}
+	</select>
+    
+    <select id="queryBeanById" resultType="com.glodio.bean.User">
+		select
+		<include refid="Base_Column_List" />
+		from user where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<select id="queryBean" resultMap="BaseResultMap">
+		select * from user where username = #{username,jdbcType=VARCHAR} 
+	</select>
+	<select id="queryBeans" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from user where username like
+		concat(concat("%",#{username}),"%")
+	</select>
+	<select id="queryByPage" resultMap="PartUserMap" parameterType="java.util.Map">
+		select * from user limit #{pageNumber},#{pageSize}
+	</select>
+	<select id="queryAllCount" resultType="int">
+		select count(*) from user
+	</select>
+
+	<!-- 查询符合集合中的数据集合,其中list为当前用户所属机构包含的所有机构id集合 -->
+	<select id="queryBeansForOrgId" resultMap="PartUserMap"
+		parameterType="java.util.Map">
+		select id,username,rolename,cjsj,xgsj,org_name from (
+		select id,username,rolename,cjsj,xgsj,org_name from user where org_id in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">#{item}</foreach>
+		) as a limit #{pageNumber},#{pageSize}
+	</select>
+	<!-- 查询总数，根据当前用户所属机构包含的所有机构id集合 -->
+	<select id="queryAllCountForOrgId" resultType="int"
+		parameterType="java.util.List">
+		select count(*) from user where org_id in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">#{item}</foreach>
+	</select>
+
+	<insert id="addBean" parameterType="com.glodio.bean.User">
+		insert into user (id, username, password,
+		rolename,cjsj,xgsj,last_time,system_user,url_index,org_id,org_level,org_name,parent_id,channel_ids,alarm_colors)
+		values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{rolename,jdbcType=INTEGER},#{cjsj,jdbcType=TIMESTAMP},#{xgsj,jdbcType=TIMESTAMP},#{lastTime,jdbcType=DATE},
+		#{systemUser,jdbcType=INTEGER},#{urlIndex,jdbcType=VARCHAR},#{orgId,jdbcType=INTEGER},
+		#{orgLevel,jdbcType=INTEGER},#{orgName,jdbcType=VARCHAR},#{parentId,jdbcType=INTEGER},#{channelIds,jdbcType=VARCHAR},
+		#{alarmColors,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateBean" parameterType="com.glodio.bean.User">
+		update user
+		<set>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="rolename != null">
+				rolename = #{rolename,jdbcType=VARCHAR},
+			</if>
+			<if test="cjsj != null">
+				cjsj = #{cjsj,jdbcType=DATE},
+			</if>
+			<if test="xgsj != null">
+				xgsj = #{xgsj,jdbcType=DATE},
+			</if>
+			<if test="lastTime != null">
+				last_time = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="systemUser != null">
+				system_user = #{systemUser,jdbcType=INTEGER},
+			</if>
+			<if test="urlIndex != null">
+				url_index = #{urlIndex,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=INTEGER},
+			</if>
+			<if test="orgLevel != null">
+				org_level = #{orgLevel,jdbcType=INTEGER},
+			</if>
+			<if test="orgName != null">
+				org_name = #{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="channelIds != null">
+				channel_ids = #{channelIds,jdbcType=VARCHAR},
+			</if>
+			<if test="alarmColors != null">
+				alarm_colors = #{alarmColors,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

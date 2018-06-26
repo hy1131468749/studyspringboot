@@ -1,0 +1,443 @@
+<script type="text/javascript" src="./public/zTree_v3-master/js/jquery.ztree.core.js"></script>
+<div id="devices">
+	<div id="addPrent">
+		<button type="button" class="btn btn-primary" id="addUser" data-toggle="modal" data-target="#addModal_d" ng-click="showUser(0)">添加一个设备</button>
+	</div>
+	<div id="tables_d">
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="16%">设备名称</th>
+					<th width="12%">序列号</th>
+					
+					<th width="8%">设备类型</th>
+					
+					<th width="12%">备注</th>
+					<th width="26%">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="devData in devList">
+					<td ng-bind="devData.deviceName"></td>
+					<td ng-bind="devData.deviceId"></td>
+					
+					<td ng-bind="devData.deviceType | filterDevType"></td>
+				
+					<td ng-bind="devData.remark"></td>
+					<td>
+						<button   type="button" class="btn btn-info btn-xsZdy" ng-click="showSetPara(devData.deviceType,devData.deviceId)">设置参数</button>
+						<button type="button" class="btn btn-danger btn-xsZdy"  ng-click="issue(devData.deviceId)">下发</button>
+						<button type="button" class="btn btn-danger btn-xsZdy"  ng-click="selfCheck(devData.deviceId)">自检</button>
+						<button type="button" class="btn btn-danger btn-xsZdy" data-toggle="modal" data-target="#removeModal" ng-click="isDevId(devData.deviceId)">删除</button>
+						
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+	<div id="bottomPage">
+		<input id="inputPage" ng-model="userNum" /><span class="boldfont"> / <span id="carTotal" ></span> 页 </span>
+		
+		<button type="button" class="btn btn-default btnBlue margin20" ng-click="gotoPage()" >Go</button>
+		<div class="btn-group">
+		    <button type="button" class="btn btn-default btnBlue" ng-click="prevPage()" >上一页</button>
+		    <button type="button" class="btn btn-default btnBlue" ng-click="nextPage()" >下一页</button>
+		</div>
+		<span class="pull-right">每页10条</span>
+	</div>
+	
+	<!-- 删除模态框（Modal） -->
+	<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel1">系统提示</h4>
+	            </div>
+	            <div class="modal-body">确定删除这个设备吗？</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                <button type="button" class="btn btn-primary" ng-click="removeDev()">确定</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- 新增和编辑模态框（Modal） -->
+	<div class="modal fade" id="addModal_d" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true"  >
+	    <div class="modal-dialog"  style="overflow-y:auto;height: 98%;overflow-X:hidden;"  >
+	        <div class="modal-content">
+	            <div class="modal-header"  >
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel2" ng-bind="addTitle"></h4>
+	            </div>
+	            <div class="modal-body" >
+	            	<form class="form-horizontal" role="form">
+						<div ng-class="{'has-error':isName}" class="form-group">
+							<label for="deviceName" class="col-sm-2 control-label">设备名称</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="deviceName" ng-model="deviceName" placeholder="请输入设备名称">
+							</div>
+						</div>
+						<div ng-class="{'has-error':isNum}" class="form-group">
+							<label for="devNumber" class="col-sm-2 control-label">序列号</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="devNumber" ng-model="devNumber" placeholder="请输入序列号">
+							</div>
+						</div>
+						<div ng-class="{'has-error':isConnectPlatformName}" class="form-group">
+							<label for="platform" class="col-sm-2 control-label">对接平台</label>
+							
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="connectPlatformName"  name="connectPlatformName" ng-model="connectPlatformName" disabled="disabled"  >
+								<input type="hidden"  id="connectPlatform"  name="connectPlatform" ng-model="connectPlatform"   >
+							</div>
+							<div class="col-sm-3">
+								<button id="orgButton"  type="button" class="btn btn-primary"  ng-click="choiceConnnectPlatform()">选择平台协议</button>
+							</div>
+							
+						</div>
+						<div ng-class="{'has-error':isDevType}" class="form-group">
+							<label for="devType" class="col-sm-2 control-label">设备类型</label>
+							<div class="col-sm-10">
+								<select id="devType" class="form-control" ng-model="devType">
+									<!-- <option value="0">智能井盖</option>
+									<option value="1">智能垃圾箱</option>
+									<option value="2">智能环保箱</option> -->
+									<option value="3">智能烟感监测</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="remake" class="col-sm-2 control-label">备注</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="remake" ng-model="remake"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">经度</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="addlng" ng-model="addlng" placeholder="点击地图获取经度" disabled="disabled">
+							</div>
+							<label class="col-sm-2 control-label">纬度</label>
+							<div class="col-sm-4">	
+								<input type="text" class="form-control" id="addlat" ng-model="addlat" placeholder="点击地图获取纬度" disabled="disabled">
+							</div>
+						</div>
+						<div class="form-group" id="addDevMapParent"  >
+							<div id="r-result"><input type="text" id="suggestId" size="20" value="百度" style="width:auto;" placeholder="可以输入字段，在地图上查找地点" /></div>
+							<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:100; display:none;"></div>
+							<div id="addDevMap">
+								
+							</div>
+						</div>
+					</form>
+	            </div>
+	            <div class="modal-footer" style="margin-bottom: 8px;">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                <button type="button" class="btn btn-primary" ng-click="addDev()">确定</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!--设置参数----井盖-->
+	<div class="modal fade" id="wellModule" tabindex="-1" role="dialog" aria-labelledby="mywellModule" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="mywellModule">设置下发井盖参数</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="wellWarns" class="col-sm-4 control-label">井盖告警状态</label>
+							<div class="col-sm-7">
+								<select id="wellWarns" class="form-control" ng-model="wellWarns">
+									<option value="0">正常</option>
+									<option value="1">异常</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="travelSwitch" class="col-sm-4 control-label">行程开关</label>
+							<div class="col-sm-7">
+								<select id="travelSwitch" class="form-control" ng-model="travelSwitch">
+									<option value="0">无</option>
+									<option value="1">有</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="hinge" class="col-sm-4 control-label">井盖铰链</label>
+							<div class="col-sm-7">
+								<select id="hinge" class="form-control" ng-model="hinge">
+									<option value="0">无</option>
+									<option value="1">有</option>
+								</select>
+							</div>
+						</div>
+		            	<div class="form-group">
+							<label for="heartbeatTime" class="col-sm-4 control-label">心跳检测周期</label>
+							<div class="col-sm-7">
+								<input type="number" class="form-control" id="heartbeatTime" ng-model="heartbeatTime" placeholder="单位/小时（0-24之间）">
+							</div>
+							<span class="unitSpan">小时</span>
+						</div>
+						<div class="form-group">
+							<label for="levelWarn" class="col-sm-4 control-label">液位报警恢复检测周期</label>
+							<div class="col-sm-7">
+								<input type="number" class="form-control" id="levelWarn" ng-model="levelWarn" placeholder="单位/分钟">
+							</div>
+							<span class="unitSpan">分钟</span>
+						</div>
+						<div class="form-group">
+							<label for="journey" class="col-sm-4 control-label">行程开关报警恢复检测周期</label>
+							<div class="col-sm-7">
+								<input type="number" class="form-control" id="journey" ng-model="journey" placeholder="单位/分钟">
+							</div>
+							<span class="unitSpan">分钟</span>
+						</div>
+					</form>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" ng-click="wellEnv()">保存</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+	<!--设置参数----垃圾箱-->
+	<div class="modal fade" id="dustbinModule" tabindex="-1" role="dialog" aria-labelledby="mydustbinModule" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="mydustbinModule">设置下发垃圾箱参数</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<label for="" class="">设置下发时间</label>
+	            	<input type="datetime-local" name="" id="" value="" ng-model="dustTime" />
+	            </div>
+	            <div class="modal-footer ">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" ng-click="dustEnv()">保存</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+	<!--设置参数----环保箱-->
+	<div class="modal fade" id="envModule" tabindex="-1" role="dialog" aria-labelledby="myenvModule" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myenvModule">设置下发环保箱参数</h4>
+	            </div>
+	            <div class="modal-body">环保箱暂时没有哦</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" ng-click="sumitEnv()">保存</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+	
+   <!--设置参数----烟感-->
+	<div class="modal fade" id="smokeModule" tabindex="-1" role="dialog" aria-labelledby="mysmokeModule" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="smokeModule">设置下发烟感参数</h4>
+	            </div>
+	            
+	            <div   class="modal-body">
+	            	<form class="form-horizontal" role="form" id="editSmokeForm" >
+						
+						
+						<div style="display: none;"  class="form-group">
+							<label for="signalIntensity" class="col-sm-3 control-label">信号强度</label>
+							<div class="col-sm-5">
+								<input onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="signalIntensity" ng-model="signalIntensity" name="signalIntensity" >
+							</div>
+							<span  class="unitSpan">(1~100)</span>
+						</div>
+						
+						<div   style="display: none;" class="form-group">
+							<label for="electricity" class="col-sm-3 control-label">电量</label>
+							<div class="col-sm-5">
+								<input onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="electricity" ng-model="electricity" name="electricity" >
+							</div>
+							<span  class="unitSpan">(1~100)</span>
+						</div>
+						
+						<div class="form-group">
+							<label for="sampleFrequency" class="col-sm-3 control-label">采样频率</label>
+							<div class="col-sm-5">
+								<input onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="sampleFrequency" ng-model="sampleFrequency" name="sampleFrequency" >
+							</div>
+							<span  class="unitSpan">(1~10秒)</span> 
+						</div>
+						
+						<div class="form-group">
+							<label for="reportFrequency" class="col-sm-3 control-label">上报频率</label>
+							<div class="col-sm-5">
+								<input  onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="reportFrequency" ng-model="reportFrequency" name="reportFrequency" >
+							</div>
+						<span class="unitSpan">(10~65535 秒)</span>
+						</div>
+						
+						
+						<div class="form-group">
+							<label for="electricityThreshold" class="col-sm-3 control-label">电量阀值</label>
+							<div class="col-sm-5">
+								<input onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="electricityThreshold" ng-model="electricityThreshold" name="electricityThreshold" >
+							</div>
+							<span class="unitSpan">(1~100)</span>
+						</div>
+						
+						<div class="form-group">
+							<label for="detectionFrequency" class="col-sm-3 control-label">检测频率</label>
+							<div class="col-sm-5">
+								<input onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="detectionFrequency" ng-model="detectionFrequency" name="detectionFrequency" >
+							</div>
+							<span class="unitSpan">(>=60)</span>
+						</div>
+						<div class="form-group">
+							<label for="urgentReportFrequency" class="col-sm-3 control-label">紧急上报频率</label>
+							<div class="col-sm-5">
+								<input onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="urgentReportFrequency" ng-model="urgentReportFrequency" name="urgentReportFrequency" >
+							</div>
+							 <span class="unitSpan">(10~65535  秒)</span>
+						</div>
+						<div class="form-group">
+							<label for="urgentSampleFrequency" class="col-sm-3 control-label">紧急采样频率</label>
+							<div class="col-sm-5">
+								<input onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="urgentSampleFrequency" ng-model="urgentSampleFrequency" name="urgentSampleFrequency" >
+							</div>
+							<span class="unitSpan">(1~3 秒)</span> 
+						</div>
+					</form>
+				</div>		
+	            
+	             <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" ng-click="smokeEdit()">保存</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+	
+	
+	 <!--下发烟感参数-->
+	<div class="modal fade" id="issueSmokeModule" tabindex="-1" role="dialog" aria-labelledby="mysmokeModule" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="smokeModule">下发烟感参数</h4>
+	            </div>
+	            
+	            <div   class="modal-body">
+	            	<form class="form-horizontal" role="form" id="editSmokeForm" >
+						
+						
+						<div  style="display: none;" class="form-group">
+							<label for="signalIntensityIssue" class="col-sm-3 control-label">信号强度</label>
+							<div class="col-sm-5">
+								<input disabled="disabled"  onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="signalIntensityIssue" ng-model="signalIntensityIssue" name="signalIntensityIssue" >
+							</div>
+							
+						</div>
+						
+						<div  style="display: none;" class="form-group">
+							<label for="electricityIssue" class="col-sm-3 control-label">电量</label>
+							<div class="col-sm-5">
+								<input  disabled="disabled" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="electricityIssue" ng-model="electricityIssue" name="electricityIssue" >
+							</div>
+							
+						</div>
+						
+						<div   class="form-group">
+							<label for="sampleFrequencyIssue" class="col-sm-3 control-label">采样频率</label>
+							<div class="col-sm-5">
+								<input disabled="disabled" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="sampleFrequencyIssue" ng-model="sampleFrequencyIssue" name="sampleFrequencyIssue" >
+							</div>
+							
+						</div>
+						
+						<div class="form-group">
+							<label for="reportFrequencyIssue" class="col-sm-3 control-label">上报频率</label>
+							<div class="col-sm-5">
+								<input  disabled="disabled"  onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="reportFrequencyIssue" ng-model="reportFrequencyIssue" name="reportFrequencyIssue" >
+							</div>
+							
+						</div>
+						
+						
+						<div class="form-group">
+							<label for="electricityThresholdIssue" class="col-sm-3 control-label">电量阀值</label>
+							<div class="col-sm-5">
+								<input  disabled="disabled" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="electricityThresholdIssue" ng-model="electricityThresholdIssue" name="electricityThresholdIssue" >
+							</div>
+							
+						</div>
+						
+						<div class="form-group">
+							<label for="detectionFrequencyIssue" class="col-sm-3 control-label">检测频率</label>
+							<div class="col-sm-5">
+								<input  disabled="disabled" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="detectionFrequencyIssue" ng-model="detectionFrequencyIssue" name="detectionFrequencyIssue" >
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="urgentReportFrequencyIssue" class="col-sm-3 control-label">紧急上报频率</label>
+							<div class="col-sm-5">
+								<input  disabled="disabled" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="urgentReportFrequencyIssue" ng-model="urgentReportFrequencyIssue" name="urgentReportFrequencyIssue" >
+							</div>
+							
+						</div>
+						<div class="form-group">
+							<label for="urgentSampleFrequencyIssue" class="col-sm-3 control-label">紧急采样频率</label>
+							<div class="col-sm-5">
+								<input disabled="disabled"  onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');this.value=this.value.replace('.','');" type="number" class="form-control" id="urgentSampleFrequencyIssue" ng-model="urgentSampleFrequencyIssue" name="urgentSampleFrequencyIssue" >
+							</div>
+							
+						</div>
+					</form>
+				</div>		
+	            
+	             <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" ng-click="smokeIssue()">发送</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+	
+	
+	
+	
+   <div class="modal fade" id="connectPlatformDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  >
+	<div class="modal-dialog">
+		<div class="modal-content" style="width: 90%;top: 50px;height: 80%;margin-left: 5%;" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					选择平台协议
+				</h4>
+			</div>
+			<div class="modal-body">
+				
+			      <ul id="treeDemo" class='ztree' ></ul>
+				
+				
+			</div>
+		
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+  </div>
+	
+</div>

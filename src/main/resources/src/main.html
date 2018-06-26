@@ -1,0 +1,126 @@
+<div id="main">
+	<div id="navTop">
+		<div>
+			<span id="logoTitle">智能燃气烟感监测平台</span>
+			<!--<select name="" id="refresh">
+				<option value="0">关闭刷新</option>
+				<option value="30000">30秒刷新</option>
+				<option value="60000">1分钟刷新</option>
+				<option value="180000">3分钟刷新</option>
+				<option value="300000">5分钟刷新</option>
+			</select>-->
+		</div>
+		<div>
+			<!--  <img src="./public/img/logo.png" class="logoImg"/> -->
+		</div>
+	</div>
+	
+	<div id="leftNav">
+		<div id="userLeftNav" class="dropdown">
+			<span>
+				
+			</span>
+			<span class="btn dropdown-toggle" id="userNameMain" data-toggle="dropdown" ng-bind="userName">
+				
+			</span>
+			<ul id="editPsw" class="dropdown-menu width200" role="menu" aria-labelledby="userNameMain">
+			    <!--<li role="presentation">
+			        <a role="menuitem" tabindex="-1" href="#">修改密码</a>
+			    </li>
+			    <li role="presentation" class="divider"></li>-->
+			    <li role="presentation">
+			        <a role="menuitem" tabindex="-1" ng-click="quit()">退出</a>
+			    </li>
+			</ul>
+		</div>
+		<div id="navList">
+			<li id="menusmokedetector" class="oNavlist" ui-sref="main.smokedetector">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">燃气实时监测</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li>
+			
+			
+			
+			<li id="menudevicehggaslist" class="oNavlist" ui-sref="main.devicehggaslist">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">历史数据统计</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li>
+			
+			<li id="menudevices" class="oNavlist" ui-sref="main.devices">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">设备管理</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li>
+			
+			<li id="menuconnecttype" class="oNavlist" ui-sref="main.connecttype">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">平台管理</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li>
+			
+			<li id="menuconnectplatform" class="oNavlist" ui-sref="main.connectplatform">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">平台协议管理</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li>
+			
+			<li id="menuorg" class="oNavlist" ui-sref="main.org">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">机构管理</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li>
+					
+			<li id="menuuser" class="oNavlist" ui-sref="main.user">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">用户管理</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li>
+			
+		    <li id="menuurlmanage" class="oNavlist" ui-sref="main.urlmanage">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">菜单管理</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li>
+			
+			<li id="menurole" class="oNavlist" ui-sref="main.role">
+				<i class="glyphicon glyphicon-home color8"></i>
+				<span class="oNavlistText">角色管理</span>
+				<i class="glyphicon glyphicon-chevron-right color8 pull-right margin2"></i>
+				<!-- <span class="warnNum pull-right">0</span> -->
+			</li> 
+						
+		</div>
+	</div>
+	<div id="contentRight">
+		<!--页面内容-->
+		<div id="mainView" ui-view></div>
+	</div>
+	
+	<!--清除浮动-->
+	<div style="clear: both;"></div>
+	<!--提示模态框-->
+	<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="alertModalLabel">系统提示</h4>
+	            </div>
+	            <div class="modal-body">操作成功</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+</div>

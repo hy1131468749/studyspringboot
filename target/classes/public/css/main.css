@@ -1,0 +1,243 @@
+#main{
+	height: 100%;
+	width: 100%;
+}
+/*左侧菜单*/
+#leftNav{
+	height: calc(100% - 60px);
+	width: 15%;
+	background-color: #01131f;
+	min-width: 200px;
+	float: left;
+}
+#userLeftNav{
+	height: 60px;
+	line-height: 60px;
+	color: white;
+}
+#userLeftNav>span:nth-of-type(1){
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	border: 3px solid #48cdc7;
+	border-radius: 50%;
+	background-image: url(../img/userImg.png);
+	background-size: 80% 80%;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	vertical-align: middle;
+	margin: 0px 15px;
+}
+#userLeftNav>span:nth-of-type(2){
+	vertical-align: middle;
+	font-size: 18px;
+}
+#navList{
+	margin-top: 10px;
+}
+#navList li{
+	list-style: none;
+	text-align: left;
+	padding: 8px 10px;
+	font-size: 14px;
+	box-sizing: border-box;
+	border-left: 3px solid #01131f;
+	cursor: pointer;
+}
+#navList .oNavlistText{
+	color: #ccc;
+	margin-left: 10px;
+}
+#navList .warnNum{
+	color: #ccc;
+	margin-right: 8px;
+	background-color: #1c3244;
+	padding: 0px 12px;
+	font-size: 12px;
+	margin-top: 2px;
+}
+#navList .margin2{
+	margin-top: 2px;
+}
+
+#navList li:hover{
+	background-color: #2b2e31;
+	border-color: #2b2e31;
+}
+#navList li.active{
+	background-color: #222222;
+	border-left: 3px solid #EC7C00;
+}
+#navList li.active .warnNum{
+	color: #fff;
+	background-color: #EC7C00;
+}
+/*右侧*/
+#contentRight{
+	width: 85%;
+	height: calc(100% - 60px);
+	max-width: calc(100% - 200px);
+	float: left;
+}
+/*顶部导航栏*/
+#navTop{
+	height: 60px;
+	line-height: 60px;
+	width: 100%;
+	background-color: white;
+	/*box-sizing: border-box;
+	border-bottom: 1px solid #ccc;*/
+	background-image: url(../img/navtop.png);
+	background-size: 150% 100%;
+    background-position: 50% 0%;
+}
+#navTop .logoImg{
+	margin-left: 0px;
+	width: 180px;
+}
+#logoTitle{
+	font-size: 32px;
+    color: #ec7c00;
+    display: inline-block;
+    /*width: calc(15% + 30px);*/
+    min-width: 200px;
+    font-family: monospace;
+    text-align: center;
+    font-weight: bold;
+}
+#userNameMain:hover{
+	color: white;
+}
+#editPsw{
+	top: 0;
+	left: 100%;
+}
+#navTop>div:nth-of-type(1){
+	width: calc(100% - 200px);
+	float: left;
+	height: 100%;
+	line-height: 60px;
+	/*border-right: 1px solid #ccc;*/
+}
+#navTop>div:nth-of-type(2){
+	width: 200px;
+	float: left;
+	height: 100%;
+	line-height: 60px;
+	text-align: center;
+}
+.userIcon{
+	height: 26px;
+	width: 26px;
+	border-radius: 50%;
+	border: 1px solid #48cdc7;
+	display: inline-block;
+	margin-left: 20px;
+	background-image: url(../img/userImg.png);
+	background-size: 100% 100%;
+	vertical-align: middle;
+}
+#dropdownMenu1{
+	background-color: #5a6378;
+	outline: none;
+	color: #48cdc7;
+}
+#dropdownMenu1:active{
+	box-shadow: none;
+}
+.width200{
+	width: 190px;
+	margin-right: 10px;
+}
+#refresh{
+	font-size: 14px;
+    height: 30px;
+    margin-top: 14px;
+    margin-right: 10px;
+    float: right;
+    border-radius: 5px;
+    padding-left: 8px;
+    outline: none;
+    border-color: #48cdc7;
+    color: #48cdc7;
+    background: #5a6378;
+}
+/*路由内容大小*/
+#mainView{
+	width: 100%;
+	height: 100%;
+	background-color: #011b2d;
+	padding: 20px;
+	box-sizing: border-box;
+}
+#newPageEle{
+	text-align: center;
+}
+#newPageEle a{
+	text-decoration: none;
+	/*color: #337ab7;*/
+	color: #6cb8d5;
+}
+#newPageEle:hover,#thisNewPage:hover{
+	background: none !important;
+	border-color: #01131f !important;
+}
+#thisNewPage{
+	border: none !important;
+	padding: 0px 13px !important;
+}
+#thisNewPage>div{
+	color: white;
+	height: 36px;
+	width: 100%;
+	line-height: 36px;
+	text-align: center;
+	box-sizing: border-box;
+	background-color: #012239;
+}
+
+/****************所有地图公用样式*******************/
+.alertMap>h3{
+    margin: 0px;
+    padding: 5px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 300;
+}
+.alertMap>div{\
+	box-sizing: border-box;
+	padding-top: 20px;
+    height: 160px;
+}
+.alertMap>div>li{
+	font-size: 14px;
+	padding-left: 9px;
+}
+/*************井盖地图弹框样式*********/
+.device_01>h3{
+	background: linear-gradient(to left,rgb(200,200,200),rgb(120,120,120));
+}
+.device_01>div{
+	background-color: #ccc;
+}
+/*垃圾箱弹框样式*/
+.device_03>h3{
+	background: linear-gradient(to left,rgb(81,183,250),rgb(0,83,186));
+}
+.device_03>div{
+	background-color: #ccc;
+}
+/*环保弹框样式*/
+.device_02>h3{
+	background: linear-gradient(to left,rgb(81,183,250),rgb(0,83,186));
+}
+.device_02>div{
+	background-color: #ccc;
+}
+/*烟感样式*/
+.device_04>h3{
+	background: linear-gradient(to left,rgb(81,183,250),rgb(0,83,186));
+}
+.device_04>div{
+	background-color: #ccc;
+}

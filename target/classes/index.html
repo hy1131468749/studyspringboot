@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>智能燃气烟感监测平台</title>
+		<link rel="icon" href="./public/img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="./public/bootstrap-3.3.7-dist/css/bootstrap.css"/>
+		<link rel="stylesheet" href="./public/css/index.css" />
+		<link rel="stylesheet" href="./public/css/login.css" />
+		<link rel="stylesheet" href="./public/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="./public/css/well.css"/>
+		<link rel="stylesheet" type="text/css" href="./public/css/dustbin.css"/>
+		<link rel="stylesheet" type="text/css" href="public/css/testData.css"/>
+		<link rel="stylesheet" type="text/css" href="public/css/devices.css"/>
+	    <link rel="stylesheet" href="./public/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	    <link rel="stylesheet" href="./public/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" type="text/css">
+	</head>
+	<body ng-app="myApp" ng-controller="IndexController">
+		<div id="index" ui-view></div>
+	</body>
+	<script src="./public/js/jquery.js"></script>
+	<script src="./public/js/angular.js"></script>
+	<script src="./public/js/angular-ui-router.js"></script>
+	<script src="http://api.map.baidu.com/getscript?v=2.0&ak=GaXDmM809XmxGrKCwlt8zqT0i7OQRG7z&services=&t=20170823191629" type="text/javascript" charset="utf-8"></script>
+	<script src="./public/js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./public/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./public/js/index.js" type="text/javascript" charset="utf-8"></script>
+	<!--登录-->
+	<script src="./public/controller/login.js" type="text/javascript" charset="utf-8"></script>
+	<!--页面父路由页面（与登录同级）-->
+	<script src="./public/controller/main.js" type="text/javascript" charset="utf-8"></script>
+	<!--智能烟感  -->
+	<script src="./public/controller/smokedetector.js" type="text/javascript" charset="utf-8"></script>
+	<!--设备管理-->
+	<script src="./public/controller/devices.js" type="text/javascript" charset="utf-8"></script>
+    <!--平台管理-->
+	<script src="./public/controller/connectplatform.js" type="text/javascript" charset="utf-8"></script>
+	<!--组织管理-->
+	<script src="./public/controller/org.js" type="text/javascript" charset="utf-8"></script>
+	<!--用户管理-->
+	<script src="./public/controller/user.js" type="text/javascript" charset="utf-8"></script>
+	<!--平台管理-->
+	<script src="./public/controller/connnecttype.js" type="text/javascript" charset="utf-8"></script>
+	<!--菜单管理-->
+	<script src="./public/controller/urlmanage.js" type="text/javascript" charset="utf-8"></script>
+	<!--角色管理-->
+	<script src="./public/controller/role.js" type="text/javascript" charset="utf-8"></script>
+	<!--红光数据展示列表 -->
+	<script src="./public/controller/devicehggaslist.js" type="text/javascript" charset="utf-8"></script>
+    
+</html>

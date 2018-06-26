@@ -1,0 +1,149 @@
+
+ <script type="text/javascript" src="./public/zTree_v3-master/js/jquery.ztree.core.js"></script>
+<div id="devices">
+	<div id="addPrent">
+		<button type="button" class="btn btn-primary" id="addUser" data-toggle="modal" data-target="#addModal_d" ng-click="showAE(0)">添加组织</button>
+	</div>
+	<div id="tables_d">
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="16%">机构名</th>
+					<th width="12%">上级机构</th>
+					<th width="10%">更新时间</th>
+					<th width="20%">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="data in dataList">
+					<td ng-bind="data.orgName"></td>
+					<td ng-bind="data.parentName"></td>
+					<td ng-bind="data.modifyTime"></td>
+					<td>
+						<button type="button" class="btn btn-info btn-xsZdy"  data-toggle="modal" data-target="#addModal_d" ng-click="showAE(1,data.id)">修改</button>
+						<button type="button" class="btn btn-danger btn-xsZdy" data-toggle="modal" data-target="#removeModal" ng-click="showDelete(data.id)">删除</button>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+	<div id="bottomPage">
+		<input id="inputPage" ng-model="pageNumber" /><span class="boldfont"> / <span id="total" ></span> 页 </span>
+		
+		<button type="button" class="btn btn-default btnBlue margin20" ng-click="gotoPage()" >Go</button>
+		<div class="btn-group">
+		    <button type="button" class="btn btn-default btnBlue" ng-click="prevPage()">上一页</button>
+		    <button type="button" class="btn btn-default btnBlue" ng-click="nextPage()" >下一页</button>
+		</div>
+		<span class="pull-right">每页10条</span>
+	</div>
+	
+	<!-- 删除模态框（Modal） -->
+	<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel1">系统提示</h4>
+	            </div>
+	            <div class="modal-body">确定删除这个部门吗？</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                <button type="button" class="btn btn-primary" ng-click="remove()">确定</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- 新增和编辑模态框（Modal） -->
+	<div class="modal fade" id="addModal_d" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel2" ng-bind="addTitle"></h4>
+	            </div>
+	            <div class="modal-body">
+	            	<form class="form-horizontal" role="form" id="addform" >
+						<div ng-class="{'has-error':isOrgName}" class="form-group">
+							<label for="orgName" class="col-sm-4 control-label">机构名</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="orgName" name="orgName" ng-model="orgName">
+							</div>
+						</div>						
+						<div ng-class="{'has-error':isParentName}" class="form-group">
+							<label for="parentName" class="col-sm-4 control-label">上级机构</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="parentName"  name="parentName" ng-model="parentName" disabled="disabled"  >
+								<input type="hidden"  id="parentId"  name="parentId" ng-model="parentId"   >
+							</div>
+							<div class="col-sm-3">
+								<button id="orgButton"  type="button" class="btn btn-primary"  ng-click="choiceParentOrg()">选择机构</button>
+							</div>
+						</div>
+						
+						
+											
+						<div  class="form-group">
+							<label for="orgManager" class="col-sm-4 control-label">机构负责人</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="orgManager" name="orgManager"  ng-model="orgManager" >
+							</div>
+						</div>
+						<div  class="form-group">
+							<label for="orgPhone" class="col-sm-4 control-label">机构联系方式</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="orgPhone"  name="orgPhone" ng-model="orgPhone" >
+							</div>
+						</div>
+						<div  class="form-group">
+							<label for="orgAddress" class="col-sm-4 control-label">机构地址</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="orgAddress" name="orgAddress" ng-model="orgAddress" >
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="remark" class="col-sm-4 control-label">备注</label>
+							<div class="col-sm-8">
+								<textarea  class="form-control" id="remark" name="remark" ng-model="remark" ></textarea>
+							</div>
+						</div>
+
+					</form>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                <button type="button" class="btn btn-primary" ng-click="add()">确定</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  >
+	<div class="modal-dialog">
+		<div class="modal-content" style="width: 90%;top: 50px;height: 80%;margin-left: 5%;" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					选择上级机构
+				</h4>
+			</div>
+			<div class="modal-body">
+				
+			      <ul id="treeDemo" class='ztree' ></ul>
+				
+				
+			</div>
+		
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+  </div>
+    
+    
+
+	
+
+</div>

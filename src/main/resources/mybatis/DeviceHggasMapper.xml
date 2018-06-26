@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.glodio.dao.DeviceHggasMapper">
+  <resultMap id="BaseResultMap" type="com.glodio.bean.DeviceHggas">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
+    <result column="device_signal" jdbcType="VARCHAR" property="deviceSignal" />
+    <result column="electricity" jdbcType="VARCHAR" property="electricity" />
+    <result column="iccid" jdbcType="VARCHAR" property="iccid" />
+    <result column="alarm_status" jdbcType="INTEGER" property="alarmStatus" />
+    <result column="org_id" jdbcType="INTEGER" property="orgId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="imsi" jdbcType="VARCHAR" property="imsi" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, device_id, report_time, device_signal, electricity, iccid, alarm_status, org_id, 
+    device_name, imsi
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_hggas
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from device_hggas
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.glodio.bean.DeviceHggas">
+    insert into device_hggas (id, device_id, report_time, 
+      device_signal, electricity, iccid, 
+      alarm_status, org_id, device_name, 
+      imsi)
+    values (#{id,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, 
+      #{deviceSignal,jdbcType=VARCHAR}, #{electricity,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, 
+      #{alarmStatus,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, 
+      #{imsi,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glodio.bean.DeviceHggas">
+    insert into device_hggas
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="reportTime != null">
+        report_time,
+      </if>
+      <if test="deviceSignal != null">
+        device_signal,
+      </if>
+      <if test="electricity != null">
+        electricity,
+      </if>
+      <if test="iccid != null">
+        iccid,
+      </if>
+      <if test="alarmStatus != null">
+        alarm_status,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="imsi != null">
+        imsi,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null">
+        #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceSignal != null">
+        #{deviceSignal,jdbcType=VARCHAR},
+      </if>
+      <if test="electricity != null">
+        #{electricity,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmStatus != null">
+        #{alarmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null">
+        #{imsi,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glodio.bean.DeviceHggas">
+    update device_hggas
+    <set>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null">
+        report_time = #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceSignal != null">
+        device_signal = #{deviceSignal,jdbcType=VARCHAR},
+      </if>
+      <if test="electricity != null">
+        electricity = #{electricity,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        iccid = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmStatus != null">
+        alarm_status = #{alarmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null">
+        imsi = #{imsi,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glodio.bean.DeviceHggas">
+    update device_hggas
+    set device_id = #{deviceId,jdbcType=VARCHAR},
+      report_time = #{reportTime,jdbcType=TIMESTAMP},
+      device_signal = #{deviceSignal,jdbcType=VARCHAR},
+      electricity = #{electricity,jdbcType=VARCHAR},
+      iccid = #{iccid,jdbcType=VARCHAR},
+      alarm_status = #{alarmStatus,jdbcType=INTEGER},
+      org_id = #{orgId,jdbcType=INTEGER},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      imsi = #{imsi,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  
+  <select id="selectListByOrgId" parameterType="java.lang.Integer" resultMap="BaseResultMap"  >
+      select * from device_hggas where org_id =  #{orgId,jdbcType=INTEGER}
+  </select>
+
+   <select id="selectListByQuery" parameterType="java.util.Map" resultMap="BaseResultMap">
+      select * from device_hggas where org_id =  #{orgId,jdbcType=INTEGER}
+        <if test="startTime != null and endTime !=null">
+            and report_time <![CDATA[ >= ]]> #{startTime} and report_time <![CDATA[ <=  ]]> #{endTime}
+        </if>
+        <if test="alarmStatus != null" >
+           and alarm_status = #{alarmStatus}
+        </if>
+  </select>
+  
+  <select id="selectLastByDeviceIds" parameterType="java.util.List" resultMap="BaseResultMap"  >
+       select * from device_hggas d INNER JOIN (select device_id ,max(report_time) report_time from device_hggas
+         where device_id in
+         <foreach collection="list" separator="," open="(" close=")" item="deviceId" >
+            #{deviceId,jdbcType=VARCHAR}
+         </foreach>
+         GROUP BY device_id ) dd 
+         on d.device_id = dd.device_id and d.report_time = dd.report_time
+  </select>
+  
+ 
+  
+ 
+  
+</mapper>
