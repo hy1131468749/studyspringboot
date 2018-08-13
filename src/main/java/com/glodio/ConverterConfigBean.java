@@ -8,13 +8,12 @@ import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-
-
 /**
  * 处理时间的
  * @author Administrator
  *
  */
+
 @Configuration
 public class ConverterConfigBean {
 

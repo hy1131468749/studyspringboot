@@ -6,11 +6,14 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 
+
+
 /**
  * 当参数类型为date时进行处理，可以根据项目需要修改
  * @author Administrator
  *
  */
+
 public class StringToDateConverter implements Converter<String, Date> {
 
 	private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
